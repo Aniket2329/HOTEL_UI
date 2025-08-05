@@ -230,7 +230,7 @@ export default function ReserveRoom({ onBack }: ReserveRoomProps) {
                           </div>
                         </div>
                         <div className="text-right">
-                          <p className="text-2xl font-bold text-primary">${room.price}</p>
+                          <p className="text-2xl font-bold text-primary">{formatCurrency(room.price)}</p>
                           <p className="text-sm text-slate-500">per night</p>
                         </div>
                       </div>
