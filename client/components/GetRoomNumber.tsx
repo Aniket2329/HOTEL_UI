@@ -25,12 +25,18 @@ export default function GetRoomNumber({ onBack }: GetRoomNumberProps) {
       return;
     }
 
+    const id = parseInt(reservationId);
+    if (isNaN(id)) {
+      setError("Please enter a valid numeric reservation ID");
+      return;
+    }
+
     setLoading(true);
     setError("");
     setRoomInfo(null);
 
     try {
-      const response = await hotelApi.getRoomByReservation(reservationId);
+      const response = await hotelApi.getRoomByReservation(id);
       if (response.success) {
         setRoomInfo(response);
       } else {
