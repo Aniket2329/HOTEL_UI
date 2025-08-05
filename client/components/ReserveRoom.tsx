@@ -278,7 +278,7 @@ export default function ReserveRoom({ onBack }: ReserveRoomProps) {
                 <CardHeader>
                   <CardTitle>Book Room {selectedRoom.number}</CardTitle>
                   <CardDescription>
-                    {selectedRoom.type.charAt(0).toUpperCase() + selectedRoom.type.slice(1)} Room - ${selectedRoom.price}/night
+                    {selectedRoom.type.charAt(0).toUpperCase() + selectedRoom.type.slice(1)} Room - {formatCurrency(selectedRoom.price)}/night
                   </CardDescription>
                 </CardHeader>
                 
