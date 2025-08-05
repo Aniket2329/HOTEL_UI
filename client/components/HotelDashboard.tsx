@@ -5,6 +5,8 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import ViewReservations from "@/components/ViewReservations";
 import ReserveRoom from "@/components/ReserveRoom";
 import GetRoomNumber from "@/components/GetRoomNumber";
+import UpdateReservations from "@/components/UpdateReservations";
+import DeleteReservations from "@/components/DeleteReservations";
 import {
   Hotel,
   CalendarCheck,
