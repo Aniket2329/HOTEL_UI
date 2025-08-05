@@ -30,12 +30,14 @@ npm run dev           # Start with auto-seeding
 ## 📊 **API Endpoints Now Available**
 
 ### **Authentication**
+
 ```bash
 POST /api/auth/login
 # Body: { "username": "admin", "password": "password" }
 ```
 
 ### **Reservations**
+
 ```bash
 GET    /api/reservations           # Get all reservations
 POST   /api/reservations           # Create new reservation
@@ -45,11 +47,13 @@ GET    /api/reservations/:id/room  # Get room by reservation
 ```
 
 ### **Rooms**
+
 ```bash
 GET /api/rooms                     # Get all rooms
 ```
 
 ### **System**
+
 ```bash
 GET /api/health                    # Health check + stats
 ```
@@ -57,17 +61,20 @@ GET /api/health                    # Health check + stats
 ## 💾 **Sample Data Included**
 
 **Admin User:**
+
 - Username: `admin`
 - Password: `password`
 - Role: `ADMIN`
 
 **Sample Rooms:**
+
 - Room 101 (Single) - $150/night
-- Room 205 (Double) - $200/night  
+- Room 205 (Double) - $200/night
 - Room 301 (Suite) - $400/night
 - Room 405 (Deluxe) - $300/night
 
 **Sample Guests & Reservations:**
+
 - John Doe with active reservation
 - Jane Smith with sample booking
 
@@ -76,16 +83,19 @@ GET /api/health                    # Health check + stats
 ### **Option 1: PostgreSQL (Recommended)**
 
 1. **Install PostgreSQL driver:**
+
 ```bash
 npm install pg @types/pg
 ```
 
 2. **Update `.env`:**
+
 ```env
 DATABASE_URL="postgresql://username:password@localhost:5432/hotel_db"
 ```
 
 3. **Update `prisma/schema.prisma`:**
+
 ```prisma
 datasource db {
   provider = "postgresql"
@@ -94,6 +104,7 @@ datasource db {
 ```
 
 4. **Run migration:**
+
 ```bash
 npm run db:migrate
 npm run db:seed
@@ -102,6 +113,7 @@ npm run db:seed
 ### **Option 2: Use Cloud Database Services**
 
 **Quick Setup with MCP Integrations:**
+
 - **[Supabase](#open-mcp-popover)** - PostgreSQL + Auth + Real-time
 - **[Neon](#open-mcp-popover)** - Serverless PostgreSQL
 - **[Prisma Postgres](#open-mcp-popover)** - Managed PostgreSQL
@@ -111,11 +123,13 @@ Click [Open MCP popover](#open-mcp-popover) to connect to these services.
 ## 🔒 **Security Notes**
 
 1. **Password Hashing** - Currently using plain text (demo only)
+
    ```bash
    npm install bcrypt @types/bcrypt
    ```
 
 2. **JWT Authentication** - Currently using demo tokens
+
    ```bash
    npm install jsonwebtoken @types/jsonwebtoken
    ```

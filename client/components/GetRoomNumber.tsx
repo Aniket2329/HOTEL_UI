@@ -1,10 +1,25 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Search, MapPin, User, Calendar, Phone, Mail, DollarSign } from "lucide-react";
+import {
+  ArrowLeft,
+  Search,
+  MapPin,
+  User,
+  Calendar,
+  Phone,
+  Mail,
+  DollarSign,
+} from "lucide-react";
 import { hotelApi } from "@/lib/hotel-api";
 
 interface GetRoomNumberProps {
@@ -63,9 +78,9 @@ export default function GetRoomNumber({ onBack }: GetRoomNumberProps) {
       const response = await hotelApi.getReservations();
       if (response.success) {
         const guestReservations = response.reservations.filter(
-          res => res.guestEmail.toLowerCase() === guestEmail.toLowerCase()
+          (res) => res.guestEmail.toLowerCase() === guestEmail.toLowerCase(),
         );
-        
+
         if (guestReservations.length > 0) {
           setReservations(guestReservations);
         } else {
@@ -90,27 +105,32 @@ export default function GetRoomNumber({ onBack }: GetRoomNumberProps) {
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-IN', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
+    return new Date(dateString).toLocaleDateString("en-IN", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
     });
   };
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR'
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
     }).format(amount);
   };
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
-      case 'confirmed': return 'bg-blue-100 text-blue-800';
-      case 'checked_in': return 'bg-green-100 text-green-800';
-      case 'checked_out': return 'bg-gray-100 text-gray-800';
-      case 'cancelled': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case "confirmed":
+        return "bg-blue-100 text-blue-800";
+      case "checked_in":
+        return "bg-green-100 text-green-800";
+      case "checked_out":
+        return "bg-gray-100 text-gray-800";
+      case "cancelled":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -165,8 +185,8 @@ export default function GetRoomNumber({ onBack }: GetRoomNumberProps) {
                   disabled={loading}
                 />
               </div>
-              <Button 
-                onClick={searchByReservationId} 
+              <Button
+                onClick={searchByReservationId}
                 className="w-full"
                 disabled={loading || !reservationId.trim()}
               >
@@ -198,8 +218,8 @@ export default function GetRoomNumber({ onBack }: GetRoomNumberProps) {
                   disabled={loading}
                 />
               </div>
-              <Button 
-                onClick={searchByGuestEmail} 
+              <Button
+                onClick={searchByGuestEmail}
                 className="w-full"
                 disabled={loading || !guestEmail.trim()}
               >
@@ -228,14 +248,12 @@ export default function GetRoomNumber({ onBack }: GetRoomNumberProps) {
                   <span>Room {roomInfo.roomNumber}</span>
                 </CardTitle>
                 <Badge className={getStatusColor(roomInfo.reservation.status)}>
-                  {roomInfo.reservation.status.replace('_', ' ').toUpperCase()}
+                  {roomInfo.reservation.status.replace("_", " ").toUpperCase()}
                 </Badge>
               </div>
-              <CardDescription>
-                Reservation Details
-              </CardDescription>
+              <CardDescription>Reservation Details</CardDescription>
             </CardHeader>
-            
+
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Guest Information */}
@@ -245,7 +263,9 @@ export default function GetRoomNumber({ onBack }: GetRoomNumberProps) {
                     <span>Guest Information</span>
                   </h3>
                   <div className="space-y-2 text-sm">
-                    <p><strong>Name:</strong> {roomInfo.reservation.guestName}</p>
+                    <p>
+                      <strong>Name:</strong> {roomInfo.reservation.guestName}
+                    </p>
                     <p className="flex items-center space-x-2">
                       <Mail className="h-4 w-4 text-slate-500" />
                       <span>{roomInfo.reservation.guestEmail}</span>
@@ -254,7 +274,10 @@ export default function GetRoomNumber({ onBack }: GetRoomNumberProps) {
                       <Phone className="h-4 w-4 text-slate-500" />
                       <span>{roomInfo.reservation.guestPhone}</span>
                     </p>
-                    <p><strong>Guests:</strong> {roomInfo.reservation.numberOfGuests}</p>
+                    <p>
+                      <strong>Guests:</strong>{" "}
+                      {roomInfo.reservation.numberOfGuests}
+                    </p>
                   </div>
                 </div>
 
@@ -265,13 +288,24 @@ export default function GetRoomNumber({ onBack }: GetRoomNumberProps) {
                     <span>Booking Details</span>
                   </h3>
                   <div className="space-y-2 text-sm">
-                    <p><strong>Check-in:</strong> {formatDate(roomInfo.reservation.checkIn)}</p>
-                    <p><strong>Check-out:</strong> {formatDate(roomInfo.reservation.checkOut)}</p>
+                    <p>
+                      <strong>Check-in:</strong>{" "}
+                      {formatDate(roomInfo.reservation.checkIn)}
+                    </p>
+                    <p>
+                      <strong>Check-out:</strong>{" "}
+                      {formatDate(roomInfo.reservation.checkOut)}
+                    </p>
                     <p className="flex items-center space-x-2">
                       <DollarSign className="h-4 w-4 text-slate-500" />
-                      <span><strong>Total:</strong> {formatCurrency(roomInfo.reservation.totalAmount)}</span>
+                      <span>
+                        <strong>Total:</strong>{" "}
+                        {formatCurrency(roomInfo.reservation.totalAmount)}
+                      </span>
                     </p>
-                    <p><strong>Reservation ID:</strong> {roomInfo.reservation.id}</p>
+                    <p>
+                      <strong>Reservation ID:</strong> {roomInfo.reservation.id}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -283,9 +317,10 @@ export default function GetRoomNumber({ onBack }: GetRoomNumberProps) {
         {reservations.length > 0 && (
           <div>
             <h2 className="text-xl font-semibold mb-4 text-slate-900 dark:text-slate-100">
-              Found {reservations.length} Reservation{reservations.length > 1 ? 's' : ''}
+              Found {reservations.length} Reservation
+              {reservations.length > 1 ? "s" : ""}
             </h2>
-            
+
             <div className="space-y-4">
               {reservations.map((reservation) => (
                 <Card key={reservation.id}>
@@ -296,14 +331,15 @@ export default function GetRoomNumber({ onBack }: GetRoomNumberProps) {
                         <span>Room {reservation.roomNumber}</span>
                       </CardTitle>
                       <Badge className={getStatusColor(reservation.status)}>
-                        {reservation.status.replace('_', ' ').toUpperCase()}
+                        {reservation.status.replace("_", " ").toUpperCase()}
                       </Badge>
                     </div>
                     <CardDescription>
-                      {formatDate(reservation.checkIn)} - {formatDate(reservation.checkOut)}
+                      {formatDate(reservation.checkIn)} -{" "}
+                      {formatDate(reservation.checkOut)}
                     </CardDescription>
                   </CardHeader>
-                  
+
                   <CardContent>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                       <div>
@@ -313,19 +349,28 @@ export default function GetRoomNumber({ onBack }: GetRoomNumberProps) {
                       <div>
                         <p className="text-slate-500">Duration</p>
                         <p className="font-medium">
-                          {Math.ceil((new Date(reservation.checkOut).getTime() - new Date(reservation.checkIn).getTime()) / (1000 * 60 * 60 * 24))} nights
+                          {Math.ceil(
+                            (new Date(reservation.checkOut).getTime() -
+                              new Date(reservation.checkIn).getTime()) /
+                              (1000 * 60 * 60 * 24),
+                          )}{" "}
+                          nights
                         </p>
                       </div>
                       <div>
                         <p className="text-slate-500">Guests</p>
-                        <p className="font-medium">{reservation.numberOfGuests}</p>
+                        <p className="font-medium">
+                          {reservation.numberOfGuests}
+                        </p>
                       </div>
                       <div>
                         <p className="text-slate-500">Total</p>
-                        <p className="font-medium">{formatCurrency(reservation.totalAmount)}</p>
+                        <p className="font-medium">
+                          {formatCurrency(reservation.totalAmount)}
+                        </p>
                       </div>
                     </div>
-                    
+
                     <div className="mt-4 pt-3 border-t text-xs text-slate-500">
                       <p>Reservation ID: {reservation.id}</p>
                     </div>
@@ -345,7 +390,8 @@ export default function GetRoomNumber({ onBack }: GetRoomNumberProps) {
                 Search for Room Assignments
               </h3>
               <p className="text-slate-500 dark:text-slate-400">
-                Use either the reservation ID or guest email to find room assignments.
+                Use either the reservation ID or guest email to find room
+                assignments.
               </p>
             </CardContent>
           </Card>

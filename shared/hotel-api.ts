@@ -7,15 +7,15 @@ export interface User {
   id: number;
   username: string;
   email?: string;
-  role: 'admin' | 'staff' | 'manager';
+  role: "admin" | "staff" | "manager";
 }
 
 export interface Room {
   id: number;
   number: string;
-  type: 'single' | 'double' | 'suite' | 'deluxe';
+  type: "single" | "double" | "suite" | "deluxe";
   price: number;
-  status: 'available' | 'occupied' | 'maintenance' | 'cleaning';
+  status: "available" | "occupied" | "maintenance" | "cleaning";
   amenities: string[];
 }
 
@@ -30,7 +30,7 @@ export interface Reservation {
   checkOut: string; // ISO date string
   numberOfGuests: number;
   totalAmount: number;
-  status: 'confirmed' | 'checked_in' | 'checked_out' | 'cancelled';
+  status: "confirmed" | "checked_in" | "checked_out" | "cancelled";
   createdAt: string;
   updatedAt: string;
 }
@@ -85,7 +85,7 @@ export interface UpdateReservationRequest {
   checkIn?: string;
   checkOut?: string;
   numberOfGuests?: number;
-  status?: Reservation['status'];
+  status?: Reservation["status"];
 }
 
 export interface DeleteReservationResponse {

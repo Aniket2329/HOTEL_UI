@@ -11,7 +11,7 @@ import {
   deleteReservation,
   getRooms,
   getRoomByReservation,
-  healthCheck
+  healthCheck,
 } from "./routes/hotel";
 import { DatabaseService } from "./lib/database";
 

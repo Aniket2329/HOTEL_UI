@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -16,7 +22,7 @@ export default function HotelAuth({ onLogin }: HotelAuthProps) {
   // Sign In State
   const [signInData, setSignInData] = useState({
     username: "",
-    password: ""
+    password: "",
   });
 
   // Sign Up State
@@ -25,7 +31,7 @@ export default function HotelAuth({ onLogin }: HotelAuthProps) {
     email: "",
     phone: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
   });
 
   const [error, setError] = useState("");
@@ -35,12 +41,12 @@ export default function HotelAuth({ onLogin }: HotelAuthProps) {
 
   const handleSignInChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setSignInData(prev => ({ ...prev, [name]: value }));
+    setSignInData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSignUpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setSignUpData(prev => ({ ...prev, [name]: value }));
+    setSignUpData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSignIn = async (e: React.FormEvent) => {
@@ -61,7 +67,7 @@ export default function HotelAuth({ onLogin }: HotelAuthProps) {
 
       const response = await hotelApi.login({
         username: signInData.username,
-        password: signInData.password
+        password: signInData.password,
       });
 
       if (response.success) {
@@ -123,7 +129,7 @@ export default function HotelAuth({ onLogin }: HotelAuthProps) {
 
       // Phone validation (basic)
       const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
-      if (!phoneRegex.test(signUpData.phone.replace(/\s/g, ''))) {
+      if (!phoneRegex.test(signUpData.phone.replace(/\s/g, ""))) {
         setError("Please enter a valid phone number");
         return;
       }
@@ -132,7 +138,7 @@ export default function HotelAuth({ onLogin }: HotelAuthProps) {
         username: signUpData.username,
         email: signUpData.email,
         phone: signUpData.phone,
-        password: signUpData.password
+        password: signUpData.password,
       });
 
       if (response.success) {
@@ -142,7 +148,7 @@ export default function HotelAuth({ onLogin }: HotelAuthProps) {
           email: "",
           phone: "",
           password: "",
-          confirmPassword: ""
+          confirmPassword: "",
         });
         // Auto switch to sign in tab
         setTimeout(() => {
@@ -162,8 +168,12 @@ export default function HotelAuth({ onLogin }: HotelAuthProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 flex items-center justify-center px-4">
       {/* Background Pattern */}
-      <div className={"absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.03\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"}></div>
-      
+      <div
+        className={
+          'absolute inset-0 bg-[url(\'data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.03"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\')] opacity-20'
+        }
+      ></div>
+
       <div className="relative w-full max-w-md">
         {/* Theme Toggle */}
         <div className="absolute -top-16 right-0 z-10">
@@ -189,9 +199,13 @@ export default function HotelAuth({ onLogin }: HotelAuthProps) {
               Sign in to your account or create a new one
             </CardDescription>
           </CardHeader>
-          
+
           <CardContent>
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <Tabs
+              value={activeTab}
+              onValueChange={setActiveTab}
+              className="w-full"
+            >
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="signin">Sign In</TabsTrigger>
                 <TabsTrigger value="signup">Sign Up</TabsTrigger>
@@ -234,8 +248,8 @@ export default function HotelAuth({ onLogin }: HotelAuthProps) {
                     </div>
                   </div>
 
-                  <Button 
-                    type="submit" 
+                  <Button
+                    type="submit"
                     className="w-full h-11 text-base font-medium"
                     disabled={isLoading}
                   >
@@ -323,7 +337,9 @@ export default function HotelAuth({ onLogin }: HotelAuthProps) {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="signup-confirm-password">Confirm Password</Label>
+                    <Label htmlFor="signup-confirm-password">
+                      Confirm Password
+                    </Label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
                       <Input
@@ -339,8 +355,8 @@ export default function HotelAuth({ onLogin }: HotelAuthProps) {
                     </div>
                   </div>
 
-                  <Button 
-                    type="submit" 
+                  <Button
+                    type="submit"
                     className="w-full h-11 text-base font-medium"
                     disabled={isLoading}
                   >
@@ -374,7 +390,7 @@ export default function HotelAuth({ onLogin }: HotelAuthProps) {
             )}
           </CardContent>
         </Card>
-        
+
         {/* Footer */}
         <p className="text-center text-slate-400 text-sm mt-8">
           © 2024 Hotel Management System. All rights reserved.

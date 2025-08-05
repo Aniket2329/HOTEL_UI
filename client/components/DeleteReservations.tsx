@@ -1,21 +1,37 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { 
-  AlertDialog, 
-  AlertDialogAction, 
-  AlertDialogCancel, 
-  AlertDialogContent, 
-  AlertDialogDescription, 
-  AlertDialogFooter, 
-  AlertDialogHeader, 
-  AlertDialogTitle, 
-  AlertDialogTrigger 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { ArrowLeft, Search, Trash2, User, Calendar, MapPin, Phone, Mail, AlertTriangle } from "lucide-react";
+import {
+  ArrowLeft,
+  Search,
+  Trash2,
+  User,
+  Calendar,
+  MapPin,
+  Phone,
+  Mail,
+  AlertTriangle,
+} from "lucide-react";
 import { hotelApi } from "@/lib/hotel-api";
 import type { Reservation } from "@shared/hotel-api";
 
@@ -23,7 +39,9 @@ interface DeleteReservationsProps {
   onBack: () => void;
 }
 
-export default function DeleteReservations({ onBack }: DeleteReservationsProps) {
+export default function DeleteReservations({
+  onBack,
+}: DeleteReservationsProps) {
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
@@ -52,11 +70,12 @@ export default function DeleteReservations({ onBack }: DeleteReservationsProps) 
     }
   };
 
-  const filteredReservations = reservations.filter(reservation =>
-    reservation.guestName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    reservation.guestEmail.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    reservation.id.toString().includes(searchTerm) ||
-    reservation.roomNumber.includes(searchTerm)
+  const filteredReservations = reservations.filter(
+    (reservation) =>
+      reservation.guestName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      reservation.guestEmail.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      reservation.id.toString().includes(searchTerm) ||
+      reservation.roomNumber.includes(searchTerm),
   );
 
   const handleDelete = async (reservation: Reservation) => {
@@ -66,9 +85,11 @@ export default function DeleteReservations({ onBack }: DeleteReservationsProps) 
 
     try {
       const response = await hotelApi.deleteReservation(reservation.id);
-      
+
       if (response.success) {
-        setSuccess(`Reservation #${reservation.id} for ${reservation.guestName} has been deleted successfully.`);
+        setSuccess(
+          `Reservation #${reservation.id} for ${reservation.guestName} has been deleted successfully.`,
+        );
         await loadReservations(); // Refresh the list
       } else {
         setError(response.message || "Failed to delete reservation");
@@ -82,26 +103,31 @@ export default function DeleteReservations({ onBack }: DeleteReservationsProps) 
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
-      case 'confirmed': return 'bg-blue-100 text-blue-800';
-      case 'checked_in': return 'bg-green-100 text-green-800';
-      case 'checked_out': return 'bg-gray-100 text-gray-800';
-      case 'cancelled': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case "confirmed":
+        return "bg-blue-100 text-blue-800";
+      case "checked_in":
+        return "bg-green-100 text-green-800";
+      case "checked_out":
+        return "bg-gray-100 text-gray-800";
+      case "cancelled":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-IN', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
+    return new Date(dateString).toLocaleDateString("en-IN", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
     });
   };
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR'
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
     }).format(amount);
   };
 
@@ -111,7 +137,9 @@ export default function DeleteReservations({ onBack }: DeleteReservationsProps) 
         <div className="max-w-6xl mx-auto">
           <div className="text-center py-16">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-            <p className="text-slate-600 dark:text-slate-300">Loading reservations...</p>
+            <p className="text-slate-600 dark:text-slate-300">
+              Loading reservations...
+            </p>
           </div>
         </div>
       </div>
@@ -178,8 +206,9 @@ export default function DeleteReservations({ onBack }: DeleteReservationsProps) 
             <div className="flex items-center space-x-2">
               <AlertTriangle className="h-5 w-5 text-orange-600" />
               <p className="text-orange-800">
-                <strong>Warning:</strong> Deleting a reservation is permanent and cannot be undone. 
-                The room will be marked as available again.
+                <strong>Warning:</strong> Deleting a reservation is permanent
+                and cannot be undone. The room will be marked as available
+                again.
               </p>
             </div>
           </CardContent>
@@ -190,7 +219,7 @@ export default function DeleteReservations({ onBack }: DeleteReservationsProps) 
           <h2 className="text-xl font-semibold mb-4 text-slate-900 dark:text-slate-100">
             Reservations ({filteredReservations.length})
           </h2>
-          
+
           {filteredReservations.length === 0 ? (
             <Card>
               <CardContent className="text-center py-16">
@@ -199,34 +228,42 @@ export default function DeleteReservations({ onBack }: DeleteReservationsProps) 
                   No Reservations Found
                 </h3>
                 <p className="text-slate-500 dark:text-slate-400">
-                  {searchTerm ? "No reservations match your search." : "No reservations available to delete."}
+                  {searchTerm
+                    ? "No reservations match your search."
+                    : "No reservations available to delete."}
                 </p>
               </CardContent>
             </Card>
           ) : (
             <div className="grid gap-4">
               {filteredReservations.map((reservation) => (
-                <Card key={reservation.id} className="hover:shadow-md transition-shadow">
+                <Card
+                  key={reservation.id}
+                  className="hover:shadow-md transition-shadow"
+                >
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <User className="h-5 w-5 text-slate-600" />
                         <div>
-                          <CardTitle className="text-lg">{reservation.guestName}</CardTitle>
+                          <CardTitle className="text-lg">
+                            {reservation.guestName}
+                          </CardTitle>
                           <CardDescription>
-                            Reservation ID: {reservation.id} • Room {reservation.roomNumber}
+                            Reservation ID: {reservation.id} • Room{" "}
+                            {reservation.roomNumber}
                           </CardDescription>
                         </div>
                       </div>
                       <div className="flex items-center space-x-3">
                         <Badge className={getStatusColor(reservation.status)}>
-                          {reservation.status.replace('_', ' ').toUpperCase()}
+                          {reservation.status.replace("_", " ").toUpperCase()}
                         </Badge>
-                        
+
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
-                            <Button 
-                              variant="destructive" 
+                            <Button
+                              variant="destructive"
                               size="sm"
                               disabled={deleting}
                             >
@@ -236,19 +273,41 @@ export default function DeleteReservations({ onBack }: DeleteReservationsProps) 
                           </AlertDialogTrigger>
                           <AlertDialogContent>
                             <AlertDialogHeader>
-                              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                              <AlertDialogTitle>
+                                Are you absolutely sure?
+                              </AlertDialogTitle>
                               <AlertDialogDescription className="space-y-2">
                                 <p>
-                                  This action cannot be undone. This will permanently delete the reservation for:
+                                  This action cannot be undone. This will
+                                  permanently delete the reservation for:
                                 </p>
                                 <div className="bg-slate-100 dark:bg-slate-800 p-3 rounded-md">
-                                  <p><strong>Guest:</strong> {reservation.guestName}</p>
-                                  <p><strong>Email:</strong> {reservation.guestEmail}</p>
-                                  <p><strong>Room:</strong> {reservation.roomNumber}</p>
-                                  <p><strong>Dates:</strong> {formatDate(reservation.checkIn)} - {formatDate(reservation.checkOut)}</p>
-                                  <p><strong>Amount:</strong> {formatCurrency(reservation.totalAmount)}</p>
+                                  <p>
+                                    <strong>Guest:</strong>{" "}
+                                    {reservation.guestName}
+                                  </p>
+                                  <p>
+                                    <strong>Email:</strong>{" "}
+                                    {reservation.guestEmail}
+                                  </p>
+                                  <p>
+                                    <strong>Room:</strong>{" "}
+                                    {reservation.roomNumber}
+                                  </p>
+                                  <p>
+                                    <strong>Dates:</strong>{" "}
+                                    {formatDate(reservation.checkIn)} -{" "}
+                                    {formatDate(reservation.checkOut)}
+                                  </p>
+                                  <p>
+                                    <strong>Amount:</strong>{" "}
+                                    {formatCurrency(reservation.totalAmount)}
+                                  </p>
                                 </div>
-                                <p>The room will be marked as available for new bookings.</p>
+                                <p>
+                                  The room will be marked as available for new
+                                  bookings.
+                                </p>
                               </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
@@ -273,7 +332,7 @@ export default function DeleteReservations({ onBack }: DeleteReservationsProps) 
                       </div>
                     </div>
                   </CardHeader>
-                  
+
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                       {/* Dates */}
@@ -281,10 +340,16 @@ export default function DeleteReservations({ onBack }: DeleteReservationsProps) 
                         <Calendar className="h-4 w-4 text-slate-500" />
                         <div>
                           <p className="text-sm font-medium">
-                            {formatDate(reservation.checkIn)} - {formatDate(reservation.checkOut)}
+                            {formatDate(reservation.checkIn)} -{" "}
+                            {formatDate(reservation.checkOut)}
                           </p>
                           <p className="text-xs text-slate-500">
-                            {Math.ceil((new Date(reservation.checkOut).getTime() - new Date(reservation.checkIn).getTime()) / (1000 * 60 * 60 * 24))} nights
+                            {Math.ceil(
+                              (new Date(reservation.checkOut).getTime() -
+                                new Date(reservation.checkIn).getTime()) /
+                                (1000 * 60 * 60 * 24),
+                            )}{" "}
+                            nights
                           </p>
                         </div>
                       </div>
@@ -305,9 +370,12 @@ export default function DeleteReservations({ onBack }: DeleteReservationsProps) 
                       <div className="flex items-center space-x-2">
                         <MapPin className="h-4 w-4 text-slate-500" />
                         <div>
-                          <p className="text-sm font-medium">Room {reservation.roomNumber}</p>
+                          <p className="text-sm font-medium">
+                            Room {reservation.roomNumber}
+                          </p>
                           <p className="text-xs text-slate-500">
-                            {reservation.numberOfGuests} guest{reservation.numberOfGuests > 1 ? 's' : ''}
+                            {reservation.numberOfGuests} guest
+                            {reservation.numberOfGuests > 1 ? "s" : ""}
                           </p>
                         </div>
                       </div>
@@ -315,7 +383,9 @@ export default function DeleteReservations({ onBack }: DeleteReservationsProps) 
                       {/* Payment */}
                       <div className="flex items-center space-x-2">
                         <div>
-                          <p className="text-sm font-medium">{formatCurrency(reservation.totalAmount)}</p>
+                          <p className="text-sm font-medium">
+                            {formatCurrency(reservation.totalAmount)}
+                          </p>
                           <p className="text-xs text-slate-500">Total Amount</p>
                         </div>
                       </div>

@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import {
   AlertDialog,
@@ -11,7 +17,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger
+  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import ViewReservations from "@/components/ViewReservations";
 import ReserveRoom from "@/components/ReserveRoom";
@@ -28,7 +34,7 @@ import {
   LogOut,
   User,
   Calendar,
-  Bed
+  Bed,
 } from "lucide-react";
 
 interface HotelDashboardProps {
@@ -36,7 +42,10 @@ interface HotelDashboardProps {
   username: string;
 }
 
-export default function HotelDashboard({ onLogout, username }: HotelDashboardProps) {
+export default function HotelDashboard({
+  onLogout,
+  username,
+}: HotelDashboardProps) {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const menuOptions = [
@@ -46,7 +55,7 @@ export default function HotelDashboard({ onLogout, username }: HotelDashboardPro
       description: "Book a new room reservation",
       icon: CalendarCheck,
       color: "bg-blue-50 hover:bg-blue-100 border-blue-200",
-      iconColor: "text-blue-600"
+      iconColor: "text-blue-600",
     },
     {
       id: "view",
@@ -54,7 +63,7 @@ export default function HotelDashboard({ onLogout, username }: HotelDashboardPro
       description: "Check all existing reservations",
       icon: Eye,
       color: "bg-green-50 hover:bg-green-100 border-green-200",
-      iconColor: "text-green-600"
+      iconColor: "text-green-600",
     },
     {
       id: "room-number",
@@ -62,7 +71,7 @@ export default function HotelDashboard({ onLogout, username }: HotelDashboardPro
       description: "Find room number for a reservation",
       icon: MapPin,
       color: "bg-purple-50 hover:bg-purple-100 border-purple-200",
-      iconColor: "text-purple-600"
+      iconColor: "text-purple-600",
     },
     {
       id: "update",
@@ -70,7 +79,7 @@ export default function HotelDashboard({ onLogout, username }: HotelDashboardPro
       description: "Modify existing reservations",
       icon: Edit,
       color: "bg-orange-50 hover:bg-orange-100 border-orange-200",
-      iconColor: "text-orange-600"
+      iconColor: "text-orange-600",
     },
     {
       id: "delete",
@@ -78,7 +87,7 @@ export default function HotelDashboard({ onLogout, username }: HotelDashboardPro
       description: "Cancel or remove reservations",
       icon: Trash2,
       color: "bg-red-50 hover:bg-red-100 border-red-200",
-      iconColor: "text-red-600"
+      iconColor: "text-red-600",
     },
     {
       id: "exit",
@@ -86,8 +95,8 @@ export default function HotelDashboard({ onLogout, username }: HotelDashboardPro
       description: "Logout from the system",
       icon: LogOut,
       color: "bg-gray-50 hover:bg-gray-100 border-gray-200",
-      iconColor: "text-gray-600"
-    }
+      iconColor: "text-gray-600",
+    },
   ];
 
   const handleOptionClick = (optionId: string) => {
@@ -110,8 +119,12 @@ export default function HotelDashboard({ onLogout, username }: HotelDashboardPro
                 <Hotel className="h-6 w-6 text-primary-foreground" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">Hotel Palace</h1>
-                <p className="text-sm text-slate-500 dark:text-slate-400">System Dashboard</p>
+                <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">
+                  Hotel Palace
+                </h1>
+                <p className="text-sm text-slate-500 dark:text-slate-400">
+                  System Dashboard
+                </p>
               </div>
             </div>
             <div className="flex items-center space-x-4">
@@ -131,8 +144,8 @@ export default function HotelDashboard({ onLogout, username }: HotelDashboardPro
                   <AlertDialogHeader>
                     <AlertDialogTitle>Confirm Logout</AlertDialogTitle>
                     <AlertDialogDescription>
-                      Are you sure you want to logout from the Hotel Management System?
-                      Any unsaved changes will be lost.
+                      Are you sure you want to logout from the Hotel Management
+                      System? Any unsaved changes will be lost.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
@@ -154,9 +167,12 @@ export default function HotelDashboard({ onLogout, username }: HotelDashboardPro
           <>
             {/* Dashboard Header */}
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2">Hotel Management Dashboard</h2>
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2">
+                Hotel Management Dashboard
+              </h2>
               <p className="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-                Manage your hotel operations efficiently. Select an option below to get started.
+                Manage your hotel operations efficiently. Select an option below
+                to get started.
               </p>
             </div>
 
@@ -166,31 +182,37 @@ export default function HotelDashboard({ onLogout, username }: HotelDashboardPro
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-blue-100 text-sm font-medium">Total Rooms</p>
+                      <p className="text-blue-100 text-sm font-medium">
+                        Total Rooms
+                      </p>
                       <p className="text-2xl font-bold">124</p>
                     </div>
                     <Bed className="h-8 w-8 text-blue-200" />
                   </div>
                 </CardContent>
               </Card>
-              
+
               <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white border-0">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-green-100 text-sm font-medium">Active Reservations</p>
+                      <p className="text-green-100 text-sm font-medium">
+                        Active Reservations
+                      </p>
                       <p className="text-2xl font-bold">87</p>
                     </div>
                     <Calendar className="h-8 w-8 text-green-200" />
                   </div>
                 </CardContent>
               </Card>
-              
+
               <Card className="bg-gradient-to-r from-purple-500 to-purple-600 text-white border-0">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-purple-100 text-sm font-medium">Occupancy Rate</p>
+                      <p className="text-purple-100 text-sm font-medium">
+                        Occupancy Rate
+                      </p>
                       <p className="text-2xl font-bold">70%</p>
                     </div>
                     <Hotel className="h-8 w-8 text-purple-200" />
@@ -214,9 +236,13 @@ export default function HotelDashboard({ onLogout, username }: HotelDashboardPro
                           <CardHeader className="pb-4">
                             <div className="flex items-center space-x-3">
                               <div className={`p-2 rounded-lg bg-white/50`}>
-                                <IconComponent className={`h-6 w-6 ${option.iconColor}`} />
+                                <IconComponent
+                                  className={`h-6 w-6 ${option.iconColor}`}
+                                />
                               </div>
-                              <CardTitle className="text-lg text-slate-800">{option.title}</CardTitle>
+                              <CardTitle className="text-lg text-slate-800">
+                                {option.title}
+                              </CardTitle>
                             </div>
                           </CardHeader>
                           <CardContent className="pt-0">
@@ -230,8 +256,9 @@ export default function HotelDashboard({ onLogout, username }: HotelDashboardPro
                         <AlertDialogHeader>
                           <AlertDialogTitle>Confirm Exit</AlertDialogTitle>
                           <AlertDialogDescription>
-                            Are you sure you want to exit the Hotel Management System?
-                            You will be logged out and any unsaved changes will be lost.
+                            Are you sure you want to exit the Hotel Management
+                            System? You will be logged out and any unsaved
+                            changes will be lost.
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
@@ -254,9 +281,13 @@ export default function HotelDashboard({ onLogout, username }: HotelDashboardPro
                     <CardHeader className="pb-4">
                       <div className="flex items-center space-x-3">
                         <div className={`p-2 rounded-lg bg-white/50`}>
-                          <IconComponent className={`h-6 w-6 ${option.iconColor}`} />
+                          <IconComponent
+                            className={`h-6 w-6 ${option.iconColor}`}
+                          />
                         </div>
-                        <CardTitle className="text-lg text-slate-800">{option.title}</CardTitle>
+                        <CardTitle className="text-lg text-slate-800">
+                          {option.title}
+                        </CardTitle>
                       </div>
                     </CardHeader>
                     <CardContent className="pt-0">
@@ -272,19 +303,19 @@ export default function HotelDashboard({ onLogout, username }: HotelDashboardPro
         ) : (
           /* Render functional components based on selection */
           <>
-            {selectedOption === 'view' && (
+            {selectedOption === "view" && (
               <ViewReservations onBack={() => setSelectedOption(null)} />
             )}
-            {selectedOption === 'reserve' && (
+            {selectedOption === "reserve" && (
               <ReserveRoom onBack={() => setSelectedOption(null)} />
             )}
-            {selectedOption === 'room-number' && (
+            {selectedOption === "room-number" && (
               <GetRoomNumber onBack={() => setSelectedOption(null)} />
             )}
-            {selectedOption === 'update' && (
+            {selectedOption === "update" && (
               <UpdateReservations onBack={() => setSelectedOption(null)} />
             )}
-            {selectedOption === 'delete' && (
+            {selectedOption === "delete" && (
               <DeleteReservations onBack={() => setSelectedOption(null)} />
             )}
           </>

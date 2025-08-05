@@ -10,7 +10,7 @@ import {
   GetRoomsResponse,
   User as ApiUser,
   Room as ApiRoom,
-  Reservation as ApiReservation
+  Reservation as ApiReservation,
 } from "@shared/hotel-api";
 import prisma from "../lib/database";
 
@@ -21,7 +21,7 @@ const mapRoomToApi = (room: any): ApiRoom => ({
   type: room.type.toLowerCase(),
   price: room.price,
   status: room.status.toLowerCase(),
-  amenities: JSON.parse(room.amenities || '[]'),
+  amenities: JSON.parse(room.amenities || "[]"),
 });
 
 const mapReservationToApi = (reservation: any): ApiReservation => ({
@@ -55,31 +55,31 @@ export const register: RequestHandler = async (req, res) => {
     if (!username || !email || !phone || !password) {
       return res.status(400).json({
         success: false,
-        message: "All fields are required"
+        message: "All fields are required",
       });
     }
 
     // Check if username already exists
     const existingUser = await prisma.user.findUnique({
-      where: { username }
+      where: { username },
     });
 
     if (existingUser) {
       return res.status(400).json({
         success: false,
-        message: "Username already exists"
+        message: "Username already exists",
       });
     }
 
     // Check if email already exists
     const existingEmail = await prisma.user.findUnique({
-      where: { email }
+      where: { email },
     });
 
     if (existingEmail) {
       return res.status(400).json({
         success: false,
-        message: "Email already exists"
+        message: "Email already exists",
       });
     }
 
@@ -89,23 +89,23 @@ export const register: RequestHandler = async (req, res) => {
         username,
         email,
         password, // In production, hash the password
-        role: 'STAFF'
-      }
+        role: "STAFF",
+      },
     });
 
     const response: LoginResponse = {
       success: true,
       user: mapUserToApi(newUser),
       token: `jwt-token-${newUser.id}-${Date.now()}`,
-      message: "Registration successful"
+      message: "Registration successful",
     };
 
     res.status(201).json(response);
   } catch (error) {
-    console.error('Registration error:', error);
+    console.error("Registration error:", error);
     res.status(500).json({
       success: false,
-      message: "Internal server error"
+      message: "Internal server error",
     });
   }
 };
@@ -118,14 +118,14 @@ export const login: RequestHandler = async (req, res) => {
     if (!username || !password) {
       const response: LoginResponse = {
         success: false,
-        message: "Username and password are required"
+        message: "Username and password are required",
       };
       return res.status(400).json(response);
     }
 
     // Find user in database
     const user = await prisma.user.findUnique({
-      where: { username }
+      where: { username },
     });
 
     // Simple password check (in production, use bcrypt for hashed passwords)
@@ -134,21 +134,21 @@ export const login: RequestHandler = async (req, res) => {
         success: true,
         user: mapUserToApi(user),
         token: `demo-jwt-token-${user.id}-${Date.now()}`,
-        message: "Login successful"
+        message: "Login successful",
       };
       res.json(response);
     } else {
       const response: LoginResponse = {
         success: false,
-        message: "Invalid credentials"
+        message: "Invalid credentials",
       };
       res.status(401).json(response);
     }
   } catch (error) {
-    console.error('Login error:', error);
+    console.error("Login error:", error);
     res.status(500).json({
       success: false,
-      message: "Internal server error"
+      message: "Internal server error",
     });
   }
 };
@@ -162,22 +162,22 @@ export const getReservations: RequestHandler = async (req, res) => {
         room: true,
       },
       orderBy: {
-        createdAt: 'desc'
-      }
+        createdAt: "desc",
+      },
     });
 
     const response: GetReservationsResponse = {
       success: true,
       reservations: reservations.map(mapReservationToApi),
-      total: reservations.length
+      total: reservations.length,
     };
 
     res.json(response);
   } catch (error) {
-    console.error('Get reservations error:', error);
+    console.error("Get reservations error:", error);
     res.status(500).json({
       success: false,
-      message: "Failed to fetch reservations"
+      message: "Failed to fetch reservations",
     });
   }
 };
@@ -188,29 +188,33 @@ export const createReservation: RequestHandler = async (req, res) => {
     const reservationData: CreateReservationRequest = req.body;
 
     // Validate required fields
-    if (!reservationData.guestName || !reservationData.guestEmail || !reservationData.roomId) {
+    if (
+      !reservationData.guestName ||
+      !reservationData.guestEmail ||
+      !reservationData.roomId
+    ) {
       return res.status(400).json({
         success: false,
-        message: "Guest name, email, and room ID are required"
+        message: "Guest name, email, and room ID are required",
       });
     }
 
     // Check if room exists and is available
     const room = await prisma.room.findUnique({
-      where: { id: reservationData.roomId }
+      where: { id: reservationData.roomId },
     });
 
     if (!room) {
       return res.status(404).json({
         success: false,
-        message: "Room not found"
+        message: "Room not found",
       });
     }
 
-    if (room.status !== 'AVAILABLE') {
+    if (room.status !== "AVAILABLE") {
       return res.status(400).json({
         success: false,
-        message: "Room is not available"
+        message: "Room is not available",
       });
     }
 
@@ -222,31 +226,31 @@ export const createReservation: RequestHandler = async (req, res) => {
       where: {
         roomId: reservationData.roomId,
         status: {
-          in: ['CONFIRMED', 'CHECKED_IN']
+          in: ["CONFIRMED", "CHECKED_IN"],
         },
         OR: [
           {
             checkIn: {
-              lte: checkOut
+              lte: checkOut,
             },
             checkOut: {
-              gte: checkIn
-            }
-          }
-        ]
-      }
+              gte: checkIn,
+            },
+          },
+        ],
+      },
     });
 
     if (conflictingReservation) {
       return res.status(400).json({
         success: false,
-        message: "Room is already booked for the selected dates"
+        message: "Room is already booked for the selected dates",
       });
     }
 
     // Create or find guest
     let guest = await prisma.guest.findUnique({
-      where: { email: reservationData.guestEmail }
+      where: { email: reservationData.guestEmail },
     });
 
     if (!guest) {
@@ -255,12 +259,14 @@ export const createReservation: RequestHandler = async (req, res) => {
           name: reservationData.guestName,
           email: reservationData.guestEmail,
           phone: reservationData.guestPhone,
-        }
+        },
       });
     }
 
     // Calculate total amount (simplified calculation)
-    const nights = Math.ceil((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24));
+    const nights = Math.ceil(
+      (checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24),
+    );
     const totalAmount = nights * room.price;
 
     // Create reservation
@@ -272,32 +278,32 @@ export const createReservation: RequestHandler = async (req, res) => {
         checkOut,
         numberOfGuests: reservationData.numberOfGuests,
         totalAmount,
-        status: 'CONFIRMED',
+        status: "CONFIRMED",
       },
       include: {
         guest: true,
         room: true,
-      }
+      },
     });
 
     // Update room status to occupied
     await prisma.room.update({
       where: { id: reservationData.roomId },
-      data: { status: 'OCCUPIED' }
+      data: { status: "OCCUPIED" },
     });
 
     const response: CreateReservationResponse = {
       success: true,
       reservation: mapReservationToApi(newReservation),
-      message: "Reservation created successfully"
+      message: "Reservation created successfully",
     };
 
     res.status(201).json(response);
   } catch (error) {
-    console.error('Create reservation error:', error);
+    console.error("Create reservation error:", error);
     res.status(500).json({
       success: false,
-      message: "Failed to create reservation"
+      message: "Failed to create reservation",
     });
   }
 };
@@ -311,13 +317,13 @@ export const updateReservation: RequestHandler = async (req, res) => {
 
     const existingReservation = await prisma.reservation.findUnique({
       where: { id: reservationId },
-      include: { guest: true, room: true }
+      include: { guest: true, room: true },
     });
 
     if (!existingReservation) {
       return res.status(404).json({
         success: false,
-        message: "Reservation not found"
+        message: "Reservation not found",
       });
     }
 
@@ -326,7 +332,8 @@ export const updateReservation: RequestHandler = async (req, res) => {
 
     if (updates.checkIn) updateData.checkIn = new Date(updates.checkIn);
     if (updates.checkOut) updateData.checkOut = new Date(updates.checkOut);
-    if (updates.numberOfGuests) updateData.numberOfGuests = updates.numberOfGuests;
+    if (updates.numberOfGuests)
+      updateData.numberOfGuests = updates.numberOfGuests;
     if (updates.status) updateData.status = updates.status.toUpperCase();
 
     // Update guest information if provided
@@ -338,7 +345,7 @@ export const updateReservation: RequestHandler = async (req, res) => {
 
       await prisma.guest.update({
         where: { id: existingReservation.guestId },
-        data: guestUpdates
+        data: guestUpdates,
       });
     }
 
@@ -349,21 +356,21 @@ export const updateReservation: RequestHandler = async (req, res) => {
       include: {
         guest: true,
         room: true,
-      }
+      },
     });
 
     const response: CreateReservationResponse = {
       success: true,
       reservation: mapReservationToApi(updatedReservation),
-      message: "Reservation updated successfully"
+      message: "Reservation updated successfully",
     };
 
     res.json(response);
   } catch (error) {
-    console.error('Update reservation error:', error);
+    console.error("Update reservation error:", error);
     res.status(500).json({
       success: false,
-      message: "Failed to update reservation"
+      message: "Failed to update reservation",
     });
   }
 };
@@ -376,38 +383,38 @@ export const deleteReservation: RequestHandler = async (req, res) => {
 
     const existingReservation = await prisma.reservation.findUnique({
       where: { id: reservationId },
-      include: { room: true }
+      include: { room: true },
     });
 
     if (!existingReservation) {
       return res.status(404).json({
         success: false,
-        message: "Reservation not found"
+        message: "Reservation not found",
       });
     }
 
     // Delete reservation
     await prisma.reservation.delete({
-      where: { id: reservationId }
+      where: { id: reservationId },
     });
 
     // Update room status back to available
     await prisma.room.update({
       where: { id: existingReservation.roomId },
-      data: { status: 'AVAILABLE' }
+      data: { status: "AVAILABLE" },
     });
 
     const response: DeleteReservationResponse = {
       success: true,
-      message: "Reservation deleted successfully"
+      message: "Reservation deleted successfully",
     };
 
     res.json(response);
   } catch (error) {
-    console.error('Delete reservation error:', error);
+    console.error("Delete reservation error:", error);
     res.status(500).json({
       success: false,
-      message: "Failed to delete reservation"
+      message: "Failed to delete reservation",
     });
   }
 };
@@ -417,21 +424,21 @@ export const getRooms: RequestHandler = async (req, res) => {
   try {
     const rooms = await prisma.room.findMany({
       orderBy: {
-        number: 'asc'
-      }
+        number: "asc",
+      },
     });
 
     const response: GetRoomsResponse = {
       success: true,
-      rooms: rooms.map(mapRoomToApi)
+      rooms: rooms.map(mapRoomToApi),
     };
 
     res.json(response);
   } catch (error) {
-    console.error('Get rooms error:', error);
+    console.error("Get rooms error:", error);
     res.status(500).json({
       success: false,
-      message: "Failed to fetch rooms"
+      message: "Failed to fetch rooms",
     });
   }
 };
@@ -446,27 +453,27 @@ export const getRoomByReservation: RequestHandler = async (req, res) => {
       where: { id },
       include: {
         room: true,
-        guest: true
-      }
+        guest: true,
+      },
     });
 
     if (!reservation) {
       return res.status(404).json({
         success: false,
-        message: "Reservation not found"
+        message: "Reservation not found",
       });
     }
 
     res.json({
       success: true,
       roomNumber: reservation.room.number,
-      reservation: mapReservationToApi(reservation)
+      reservation: mapReservationToApi(reservation),
     });
   } catch (error) {
-    console.error('Get room by reservation error:', error);
+    console.error("Get room by reservation error:", error);
     res.status(500).json({
       success: false,
-      message: "Failed to fetch room information"
+      message: "Failed to fetch room information",
     });
   }
 };
@@ -476,12 +483,12 @@ export const healthCheck: RequestHandler = async (req, res) => {
   try {
     // Test database connection
     await prisma.$queryRaw`SELECT 1`;
-    
+
     // Get basic stats
     const [totalRooms, totalReservations, availableRooms] = await Promise.all([
       prisma.room.count(),
       prisma.reservation.count(),
-      prisma.room.count({ where: { status: 'AVAILABLE' } })
+      prisma.room.count({ where: { status: "AVAILABLE" } }),
     ]);
 
     res.json({
@@ -491,14 +498,17 @@ export const healthCheck: RequestHandler = async (req, res) => {
         totalRooms,
         totalReservations,
         availableRooms,
-        occupancyRate: totalRooms > 0 ? Math.round(((totalRooms - availableRooms) / totalRooms) * 100) : 0
-      }
+        occupancyRate:
+          totalRooms > 0
+            ? Math.round(((totalRooms - availableRooms) / totalRooms) * 100)
+            : 0,
+      },
     });
   } catch (error) {
-    console.error('Health check error:', error);
+    console.error("Health check error:", error);
     res.status(500).json({
       success: false,
-      message: "Database connection failed"
+      message: "Database connection failed",
     });
   }
 };

@@ -1,7 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Hotel, Home, AlertTriangle } from "lucide-react";
 
 const NotFound = () => {
@@ -28,17 +34,20 @@ const NotFound = () => {
             <div className="bg-orange-100 rounded-full p-3 w-16 h-16 mx-auto mb-4">
               <AlertTriangle className="h-10 w-10 text-orange-600 mx-auto" />
             </div>
-            <CardTitle className="text-4xl font-bold text-slate-800 dark:text-slate-100 mb-2">404</CardTitle>
+            <CardTitle className="text-4xl font-bold text-slate-800 dark:text-slate-100 mb-2">
+              404
+            </CardTitle>
             <CardDescription className="text-lg text-slate-600 dark:text-slate-300">
               Oops! This page seems to be unavailable
             </CardDescription>
           </CardHeader>
-          
+
           <CardContent className="text-center pb-6">
             <p className="text-slate-500 dark:text-slate-400 mb-6">
-              The page you're looking for might have been moved, deleted, or is temporarily unavailable.
+              The page you're looking for might have been moved, deleted, or is
+              temporarily unavailable.
             </p>
-            
+
             <div className="space-y-3">
               <Button asChild className="w-full" size="lg">
                 <Link to="/">
@@ -52,7 +61,8 @@ const NotFound = () => {
 
         {/* Additional Info */}
         <p className="text-slate-400 dark:text-slate-500 text-sm mt-6">
-          If you continue to experience issues, please contact your system administrator.
+          If you continue to experience issues, please contact your system
+          administrator.
         </p>
       </div>
     </div>

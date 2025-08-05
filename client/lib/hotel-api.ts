@@ -8,23 +8,23 @@ import {
   UpdateReservationRequest,
   DeleteReservationResponse,
   GetRoomsResponse,
-  ApiError
+  ApiError,
 } from "@shared/hotel-api";
 
 class HotelApiService {
-  private baseUrl = '/api';
+  private baseUrl = "/api";
   private token: string | null = null;
 
   // Set authentication token
   setToken(token: string) {
     this.token = token;
-    localStorage.setItem('hotel-auth-token', token);
+    localStorage.setItem("hotel-auth-token", token);
   }
 
   // Get authentication token
   getToken(): string | null {
     if (!this.token) {
-      this.token = localStorage.getItem('hotel-auth-token');
+      this.token = localStorage.getItem("hotel-auth-token");
     }
     return this.token;
   }
@@ -32,20 +32,20 @@ class HotelApiService {
   // Clear authentication
   clearAuth() {
     this.token = null;
-    localStorage.removeItem('hotel-auth-token');
+    localStorage.removeItem("hotel-auth-token");
   }
 
   // Generic fetch helper
   private async fetchApi<T>(
     endpoint: string,
-    options: RequestInit = {}
+    options: RequestInit = {},
   ): Promise<T> {
     const url = `${this.baseUrl}${endpoint}`;
     const token = this.getToken();
 
     const config: RequestInit = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         ...(token && { Authorization: `Bearer ${token}` }),
         ...options.headers,
       },
@@ -76,8 +76,8 @@ class HotelApiService {
 
   // Authentication
   async register(userData: RegisterRequest): Promise<LoginResponse> {
-    const response = await this.fetchApi<LoginResponse>('/auth/register', {
-      method: 'POST',
+    const response = await this.fetchApi<LoginResponse>("/auth/register", {
+      method: "POST",
       body: JSON.stringify(userData),
     });
 
@@ -89,8 +89,8 @@ class HotelApiService {
   }
 
   async login(credentials: LoginRequest): Promise<LoginResponse> {
-    const response = await this.fetchApi<LoginResponse>('/auth/login', {
-      method: 'POST',
+    const response = await this.fetchApi<LoginResponse>("/auth/login", {
+      method: "POST",
       body: JSON.stringify(credentials),
     });
 
@@ -103,37 +103,37 @@ class HotelApiService {
 
   // Reservations
   async getReservations(): Promise<GetReservationsResponse> {
-    return this.fetchApi<GetReservationsResponse>('/reservations');
+    return this.fetchApi<GetReservationsResponse>("/reservations");
   }
 
   async createReservation(
-    reservation: CreateReservationRequest
+    reservation: CreateReservationRequest,
   ): Promise<CreateReservationResponse> {
-    return this.fetchApi<CreateReservationResponse>('/reservations', {
-      method: 'POST',
+    return this.fetchApi<CreateReservationResponse>("/reservations", {
+      method: "POST",
       body: JSON.stringify(reservation),
     });
   }
 
   async updateReservation(
     id: number,
-    updates: Partial<UpdateReservationRequest>
+    updates: Partial<UpdateReservationRequest>,
   ): Promise<CreateReservationResponse> {
     return this.fetchApi<CreateReservationResponse>(`/reservations/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify({ id, ...updates }),
     });
   }
 
   async deleteReservation(id: number): Promise<DeleteReservationResponse> {
     return this.fetchApi<DeleteReservationResponse>(`/reservations/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
     });
   }
 
   // Rooms
   async getRooms(): Promise<GetRoomsResponse> {
-    return this.fetchApi<GetRoomsResponse>('/rooms');
+    return this.fetchApi<GetRoomsResponse>("/rooms");
   }
 
   async getRoomByReservation(reservationId: number) {

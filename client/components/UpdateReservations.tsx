@@ -1,11 +1,32 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Search, Edit3, User, Calendar, MapPin, Phone, Mail } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  ArrowLeft,
+  Search,
+  Edit3,
+  User,
+  Calendar,
+  MapPin,
+  Phone,
+  Mail,
+} from "lucide-react";
 import { hotelApi } from "@/lib/hotel-api";
 import type { Reservation, UpdateReservationRequest } from "@shared/hotel-api";
 
@@ -13,9 +34,12 @@ interface UpdateReservationsProps {
   onBack: () => void;
 }
 
-export default function UpdateReservations({ onBack }: UpdateReservationsProps) {
+export default function UpdateReservations({
+  onBack,
+}: UpdateReservationsProps) {
   const [reservations, setReservations] = useState<Reservation[]>([]);
-  const [selectedReservation, setSelectedReservation] = useState<Reservation | null>(null);
+  const [selectedReservation, setSelectedReservation] =
+    useState<Reservation | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -30,7 +54,7 @@ export default function UpdateReservations({ onBack }: UpdateReservationsProps) 
     checkIn: "",
     checkOut: "",
     numberOfGuests: 1,
-    status: ""
+    status: "",
   });
 
   useEffect(() => {
@@ -43,10 +67,10 @@ export default function UpdateReservations({ onBack }: UpdateReservationsProps) 
         guestName: selectedReservation.guestName,
         guestEmail: selectedReservation.guestEmail,
         guestPhone: selectedReservation.guestPhone,
-        checkIn: selectedReservation.checkIn.split('T')[0],
-        checkOut: selectedReservation.checkOut.split('T')[0],
+        checkIn: selectedReservation.checkIn.split("T")[0],
+        checkOut: selectedReservation.checkOut.split("T")[0],
         numberOfGuests: selectedReservation.numberOfGuests,
-        status: selectedReservation.status
+        status: selectedReservation.status,
       });
     }
   }, [selectedReservation]);
@@ -68,23 +92,24 @@ export default function UpdateReservations({ onBack }: UpdateReservationsProps) 
     }
   };
 
-  const filteredReservations = reservations.filter(reservation =>
-    reservation.guestName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    reservation.guestEmail.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    reservation.id.toString().includes(searchTerm) ||
-    reservation.roomNumber.includes(searchTerm)
+  const filteredReservations = reservations.filter(
+    (reservation) =>
+      reservation.guestName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      reservation.guestEmail.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      reservation.id.toString().includes(searchTerm) ||
+      reservation.roomNumber.includes(searchTerm),
   );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: name === 'numberOfGuests' ? parseInt(value) || 1 : value
+      [name]: name === "numberOfGuests" ? parseInt(value) || 1 : value,
     }));
   };
 
   const handleStatusChange = (value: string) => {
-    setFormData(prev => ({ ...prev, status: value }));
+    setFormData((prev) => ({ ...prev, status: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -103,13 +128,18 @@ export default function UpdateReservations({ onBack }: UpdateReservationsProps) 
         checkIn: formData.checkIn,
         checkOut: formData.checkOut,
         numberOfGuests: formData.numberOfGuests,
-        status: formData.status as any
+        status: formData.status as any,
       };
 
-      const response = await hotelApi.updateReservation(selectedReservation.id, updates);
-      
+      const response = await hotelApi.updateReservation(
+        selectedReservation.id,
+        updates,
+      );
+
       if (response.success) {
-        setSuccess(`Reservation ${selectedReservation.id} updated successfully!`);
+        setSuccess(
+          `Reservation ${selectedReservation.id} updated successfully!`,
+        );
         await loadReservations(); // Refresh the list
         setSelectedReservation(null); // Close the form
       } else {
@@ -124,26 +154,31 @@ export default function UpdateReservations({ onBack }: UpdateReservationsProps) 
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
-      case 'confirmed': return 'bg-blue-100 text-blue-800';
-      case 'checked_in': return 'bg-green-100 text-green-800';
-      case 'checked_out': return 'bg-gray-100 text-gray-800';
-      case 'cancelled': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case "confirmed":
+        return "bg-blue-100 text-blue-800";
+      case "checked_in":
+        return "bg-green-100 text-green-800";
+      case "checked_out":
+        return "bg-gray-100 text-gray-800";
+      case "cancelled":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-IN', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
+    return new Date(dateString).toLocaleDateString("en-IN", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
     });
   };
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR'
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
     }).format(amount);
   };
 
@@ -153,7 +188,9 @@ export default function UpdateReservations({ onBack }: UpdateReservationsProps) 
         <div className="max-w-6xl mx-auto">
           <div className="text-center py-16">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-            <p className="text-slate-600 dark:text-slate-300">Loading reservations...</p>
+            <p className="text-slate-600 dark:text-slate-300">
+              Loading reservations...
+            </p>
           </div>
         </div>
       </div>
@@ -219,7 +256,7 @@ export default function UpdateReservations({ onBack }: UpdateReservationsProps) 
             <h2 className="text-xl font-semibold mb-4 text-slate-900 dark:text-slate-100">
               Reservations ({filteredReservations.length})
             </h2>
-            
+
             {filteredReservations.length === 0 ? (
               <Card>
                 <CardContent className="text-center py-16">
@@ -228,19 +265,21 @@ export default function UpdateReservations({ onBack }: UpdateReservationsProps) 
                     No Reservations Found
                   </h3>
                   <p className="text-slate-500 dark:text-slate-400">
-                    {searchTerm ? "No reservations match your search." : "No reservations available to update."}
+                    {searchTerm
+                      ? "No reservations match your search."
+                      : "No reservations available to update."}
                   </p>
                 </CardContent>
               </Card>
             ) : (
               <div className="space-y-4 max-h-96 overflow-y-auto">
                 {filteredReservations.map((reservation) => (
-                  <Card 
+                  <Card
                     key={reservation.id}
                     className={`cursor-pointer transition-all ${
-                      selectedReservation?.id === reservation.id 
-                        ? 'ring-2 ring-primary bg-primary/5' 
-                        : 'hover:shadow-md'
+                      selectedReservation?.id === reservation.id
+                        ? "ring-2 ring-primary bg-primary/5"
+                        : "hover:shadow-md"
                     }`}
                     onClick={() => setSelectedReservation(reservation)}
                   >
@@ -248,17 +287,19 @@ export default function UpdateReservations({ onBack }: UpdateReservationsProps) 
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
                           <User className="h-4 w-4 text-slate-600" />
-                          <CardTitle className="text-base">{reservation.guestName}</CardTitle>
+                          <CardTitle className="text-base">
+                            {reservation.guestName}
+                          </CardTitle>
                         </div>
                         <Badge className={getStatusColor(reservation.status)}>
-                          {reservation.status.replace('_', ' ').toUpperCase()}
+                          {reservation.status.replace("_", " ").toUpperCase()}
                         </Badge>
                       </div>
                       <CardDescription>
                         ID: {reservation.id} • Room {reservation.roomNumber}
                       </CardDescription>
                     </CardHeader>
-                    
+
                     <CardContent className="pt-0">
                       <div className="grid grid-cols-2 gap-2 text-sm">
                         <div className="flex items-center space-x-1">
@@ -282,7 +323,7 @@ export default function UpdateReservations({ onBack }: UpdateReservationsProps) 
             <h2 className="text-xl font-semibold mb-4 text-slate-900 dark:text-slate-100">
               Update Reservation
             </h2>
-            
+
             {!selectedReservation ? (
               <Card>
                 <CardContent className="text-center py-16">
@@ -298,12 +339,15 @@ export default function UpdateReservations({ onBack }: UpdateReservationsProps) 
             ) : (
               <Card>
                 <CardHeader>
-                  <CardTitle>Update Reservation #{selectedReservation.id}</CardTitle>
+                  <CardTitle>
+                    Update Reservation #{selectedReservation.id}
+                  </CardTitle>
                   <CardDescription>
-                    Room {selectedReservation.roomNumber} • {formatCurrency(selectedReservation.totalAmount)}
+                    Room {selectedReservation.roomNumber} •{" "}
+                    {formatCurrency(selectedReservation.totalAmount)}
                   </CardDescription>
                 </CardHeader>
-                
+
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-4">
                     {/* Guest Information */}
@@ -376,7 +420,9 @@ export default function UpdateReservations({ onBack }: UpdateReservationsProps) 
 
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <Label htmlFor="numberOfGuests">Number of Guests</Label>
+                          <Label htmlFor="numberOfGuests">
+                            Number of Guests
+                          </Label>
                           <Input
                             id="numberOfGuests"
                             name="numberOfGuests"
@@ -390,15 +436,26 @@ export default function UpdateReservations({ onBack }: UpdateReservationsProps) 
 
                         <div>
                           <Label htmlFor="status">Status</Label>
-                          <Select value={formData.status} onValueChange={handleStatusChange}>
+                          <Select
+                            value={formData.status}
+                            onValueChange={handleStatusChange}
+                          >
                             <SelectTrigger>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="confirmed">Confirmed</SelectItem>
-                              <SelectItem value="checked_in">Checked In</SelectItem>
-                              <SelectItem value="checked_out">Checked Out</SelectItem>
-                              <SelectItem value="cancelled">Cancelled</SelectItem>
+                              <SelectItem value="confirmed">
+                                Confirmed
+                              </SelectItem>
+                              <SelectItem value="checked_in">
+                                Checked In
+                              </SelectItem>
+                              <SelectItem value="checked_out">
+                                Checked Out
+                              </SelectItem>
+                              <SelectItem value="cancelled">
+                                Cancelled
+                              </SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
@@ -406,9 +463,9 @@ export default function UpdateReservations({ onBack }: UpdateReservationsProps) 
                     </div>
 
                     <div className="flex space-x-3">
-                      <Button 
-                        type="submit" 
-                        className="flex-1" 
+                      <Button
+                        type="submit"
+                        className="flex-1"
                         disabled={submitting}
                       >
                         {submitting ? (
@@ -420,8 +477,8 @@ export default function UpdateReservations({ onBack }: UpdateReservationsProps) 
                           "Update Reservation"
                         )}
                       </Button>
-                      
-                      <Button 
+
+                      <Button
                         type="button"
                         variant="outline"
                         onClick={() => setSelectedReservation(null)}
