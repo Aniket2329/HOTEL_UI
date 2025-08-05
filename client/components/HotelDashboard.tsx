@@ -110,7 +110,7 @@ export default function HotelDashboard({ onLogout, username }: HotelDashboardPro
                 <Hotel className="h-6 w-6 text-primary-foreground" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">Hotel Management</h1>
+                <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">Hotel Palace</h1>
                 <p className="text-sm text-slate-500 dark:text-slate-400">System Dashboard</p>
               </div>
             </div>
