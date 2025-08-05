@@ -158,9 +158,9 @@ export default function HotelLogin({ onLogin }: HotelLoginProps) {
                   Auto-fill
                 </Button>
               </div>
-              <p className="text-xs text-slate-500">Username: admin</p>
-              <p className="text-xs text-slate-500">Password: password</p>
-              <p className="text-xs text-slate-400 mt-2">
+              <p className="text-xs text-slate-500 dark:text-slate-400">Username: admin</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Password: password</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
                 (Any non-empty credentials will work for this demo)
               </p>
             </div>
