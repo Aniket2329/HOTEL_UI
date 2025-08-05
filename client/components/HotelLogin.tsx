@@ -52,7 +52,7 @@ export default function HotelLogin({ onLogin }: HotelLoginProps) {
       
       <div className="relative w-full max-w-md">
         {/* Theme Toggle */}
-        <div className="absolute -top-4 right-0">
+        <div className="absolute -top-16 right-0 z-10">
           <ThemeToggle />
         </div>
 
