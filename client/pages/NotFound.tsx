@@ -28,8 +28,8 @@ const NotFound = () => {
             <div className="bg-orange-100 rounded-full p-3 w-16 h-16 mx-auto mb-4">
               <AlertTriangle className="h-10 w-10 text-orange-600 mx-auto" />
             </div>
-            <CardTitle className="text-4xl font-bold text-slate-800 mb-2">404</CardTitle>
-            <CardDescription className="text-lg text-slate-600">
+            <CardTitle className="text-4xl font-bold text-slate-800 dark:text-slate-100 mb-2">404</CardTitle>
+            <CardDescription className="text-lg text-slate-600 dark:text-slate-300">
               Oops! This page seems to be unavailable
             </CardDescription>
           </CardHeader>
