@@ -243,6 +243,7 @@ export const createReservation: RequestHandler = async (req, res) => {
 export const updateReservation: RequestHandler = async (req, res) => {
   try {
     const { id } = req.params;
+    const reservationId = parseInt(id);
     const updates: UpdateReservationRequest = req.body;
 
     const existingReservation = await prisma.reservation.findUnique({
