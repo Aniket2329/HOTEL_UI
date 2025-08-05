@@ -1,0 +1,106 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  email     String?  @unique
+  password  String   // In production, this should be hashed
+  role      Role     @default(STAFF)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Room {
+  id           String        @id @default(cuid())
+  number       String        @unique
+  type         RoomType
+  price        Float
+  status       RoomStatus    @default(AVAILABLE)
+  amenities    String        // JSON string for array of amenities
+  description  String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  
+  // Relations
+  reservations Reservation[]
+
+  @@map("rooms")
+}
+
+model Guest {
+  id           String        @id @default(cuid())
+  name         String
+  email        String
+  phone        String
+  address      String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  // Relations
+  reservations Reservation[]
+
+  @@map("guests")
+}
+
+model Reservation {
+  id             String            @id @default(cuid())
+  guestId        String
+  roomId         String
+  checkIn        DateTime
+  checkOut       DateTime
+  numberOfGuests Int               @default(1)
+  totalAmount    Float
+  status         ReservationStatus @default(CONFIRMED)
+  specialRequests String?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  // Relations
+  guest Guest @relation(fields: [guestId], references: [id], onDelete: Cascade)
+  room  Room  @relation(fields: [roomId], references: [id], onDelete: Restrict)
+
+  @@map("reservations")
+}
+
+// Enums
+enum Role {
+  ADMIN
+  MANAGER
+  STAFF
+}
+
+enum RoomType {
+  SINGLE
+  DOUBLE
+  SUITE
+  DELUXE
+  PRESIDENTIAL
+}
+
+enum RoomStatus {
+  AVAILABLE
+  OCCUPIED
+  MAINTENANCE
+  CLEANING
+  OUT_OF_ORDER
+}
+
+enum ReservationStatus {
+  CONFIRMED
+  CHECKED_IN
+  CHECKED_OUT
+  CANCELLED
+  NO_SHOW
+}
