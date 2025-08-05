@@ -247,7 +247,7 @@ export const updateReservation: RequestHandler = async (req, res) => {
     const updates: UpdateReservationRequest = req.body;
 
     const existingReservation = await prisma.reservation.findUnique({
-      where: { id },
+      where: { id: reservationId },
       include: { guest: true, room: true }
     });
 
