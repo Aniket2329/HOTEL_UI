@@ -80,7 +80,7 @@ export default function HotelLogin({ onLogin }: HotelLoginProps) {
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Username Field */}
               <div className="space-y-2">
-                <label htmlFor="username" className="text-sm font-medium text-slate-700">
+                <label htmlFor="username" className="text-sm font-medium text-slate-700 dark:text-slate-200">
                   Username
                 </label>
                 <div className="relative">
