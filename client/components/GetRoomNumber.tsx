@@ -263,7 +263,7 @@ export default function GetRoomNumber({ onBack }: GetRoomNumberProps) {
                     <p><strong>Check-out:</strong> {formatDate(roomInfo.reservation.checkOut)}</p>
                     <p className="flex items-center space-x-2">
                       <DollarSign className="h-4 w-4 text-slate-500" />
-                      <span><strong>Total:</strong> ${roomInfo.reservation.totalAmount}</span>
+                      <span><strong>Total:</strong> {formatCurrency(roomInfo.reservation.totalAmount)}</span>
                     </p>
                     <p><strong>Reservation ID:</strong> {roomInfo.reservation.id}</p>
                   </div>
