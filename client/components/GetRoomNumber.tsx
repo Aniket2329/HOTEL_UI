@@ -316,7 +316,7 @@ export default function GetRoomNumber({ onBack }: GetRoomNumberProps) {
                       </div>
                       <div>
                         <p className="text-slate-500">Total</p>
-                        <p className="font-medium">${reservation.totalAmount}</p>
+                        <p className="font-medium">{formatCurrency(reservation.totalAmount)}</p>
                       </div>
                     </div>
                     
