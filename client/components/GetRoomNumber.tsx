@@ -37,7 +37,7 @@ export default function GetRoomNumber({ onBack }: GetRoomNumberProps) {
 
     try {
       const response = await hotelApi.getRoomByReservation(id);
-      if (response.success) {
+      if ((response as any).success) {
         setRoomInfo(response);
       } else {
         setError("Reservation not found");
