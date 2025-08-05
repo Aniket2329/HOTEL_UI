@@ -33,6 +33,7 @@ export function createServer() {
 
   // Hotel Management API routes
   app.get("/api/health", healthCheck);
+  app.post("/api/auth/register", register);
   app.post("/api/auth/login", login);
   app.get("/api/reservations", getReservations);
   app.post("/api/reservations", createReservation);
