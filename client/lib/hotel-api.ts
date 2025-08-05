@@ -115,7 +115,7 @@ class HotelApiService {
     return this.fetchApi<GetRoomsResponse>('/rooms');
   }
 
-  async getRoomByReservation(reservationId: string) {
+  async getRoomByReservation(reservationId: number) {
     return this.fetchApi(`/reservations/${reservationId}/room`);
   }
 
