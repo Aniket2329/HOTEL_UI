@@ -377,9 +377,10 @@ export const getRooms: RequestHandler = async (req, res) => {
 export const getRoomByReservation: RequestHandler = async (req, res) => {
   try {
     const { reservationId } = req.params;
+    const id = parseInt(reservationId);
 
     const reservation = await prisma.reservation.findUnique({
-      where: { id: reservationId },
+      where: { id },
       include: {
         room: true,
         guest: true
