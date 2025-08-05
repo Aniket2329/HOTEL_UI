@@ -28,5 +28,14 @@ export function createServer() {
 
   app.get("/api/demo", handleDemo);
 
+  // Hotel Management API routes
+  app.post("/api/auth/login", login);
+  app.get("/api/reservations", getReservations);
+  app.post("/api/reservations", createReservation);
+  app.put("/api/reservations/:id", updateReservation);
+  app.delete("/api/reservations/:id", deleteReservation);
+  app.get("/api/rooms", getRooms);
+  app.get("/api/reservations/:reservationId/room", getRoomByReservation);
+
   return app;
 }
