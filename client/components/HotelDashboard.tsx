@@ -208,22 +208,11 @@ export default function HotelDashboard({ onLogout, username }: HotelDashboardPro
             {selectedOption === 'room-number' && (
               <GetRoomNumber onBack={() => setSelectedOption(null)} />
             )}
-            {(selectedOption === 'update' || selectedOption === 'delete') && (
-              <div className="text-center py-16">
-                <Card className="max-w-md mx-auto">
-                  <CardHeader>
-                    <CardTitle className="text-xl">Feature Coming Soon</CardTitle>
-                    <CardDescription>
-                      The {menuOptions.find(opt => opt.id === selectedOption)?.title} feature is being developed.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Button onClick={() => setSelectedOption(null)} variant="outline">
-                      Back to Dashboard
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
+            {selectedOption === 'update' && (
+              <UpdateReservations onBack={() => setSelectedOption(null)} />
+            )}
+            {selectedOption === 'delete' && (
+              <DeleteReservations onBack={() => setSelectedOption(null)} />
             )}
           </>
         )}
