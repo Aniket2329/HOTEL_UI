@@ -180,7 +180,7 @@ export default function ViewReservations({ onBack }: ViewReservationsProps) {
                     <div className="flex items-center space-x-2">
                       <DollarSign className="h-4 w-4 text-slate-500" />
                       <div>
-                        <p className="text-sm font-medium">${reservation.totalAmount}</p>
+                        <p className="text-sm font-medium">{formatCurrency(reservation.totalAmount)}</p>
                         <p className="text-xs text-slate-500">
                           {reservation.numberOfGuests} guest{reservation.numberOfGuests > 1 ? 's' : ''}
                         </p>
