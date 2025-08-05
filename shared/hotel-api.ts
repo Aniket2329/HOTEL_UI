@@ -4,14 +4,14 @@
  */
 
 export interface User {
-  id: string;
+  id: number;
   username: string;
   email?: string;
   role: 'admin' | 'staff' | 'manager';
 }
 
 export interface Room {
-  id: string;
+  id: number;
   number: string;
   type: 'single' | 'double' | 'suite' | 'deluxe';
   price: number;
@@ -20,11 +20,11 @@ export interface Room {
 }
 
 export interface Reservation {
-  id: string;
+  id: number;
   guestName: string;
   guestEmail: string;
   guestPhone: string;
-  roomId: string;
+  roomId: number;
   roomNumber: string;
   checkIn: string; // ISO date string
   checkOut: string; // ISO date string
