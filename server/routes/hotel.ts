@@ -312,7 +312,7 @@ export const deleteReservation: RequestHandler = async (req, res) => {
     const reservationId = parseInt(id);
 
     const existingReservation = await prisma.reservation.findUnique({
-      where: { id },
+      where: { id: reservationId },
       include: { room: true }
     });
 
@@ -325,7 +325,7 @@ export const deleteReservation: RequestHandler = async (req, res) => {
 
     // Delete reservation
     await prisma.reservation.delete({
-      where: { id }
+      where: { id: reservationId }
     });
 
     // Update room status back to available
