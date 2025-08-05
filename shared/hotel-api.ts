@@ -52,7 +52,7 @@ export interface CreateReservationRequest {
   guestName: string;
   guestEmail: string;
   guestPhone: string;
-  roomId: string;
+  roomId: number;
   checkIn: string;
   checkOut: string;
   numberOfGuests: number;
