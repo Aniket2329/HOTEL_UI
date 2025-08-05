@@ -401,7 +401,7 @@ export default function ReserveRoom({ onBack }: ReserveRoomProps) {
                           <span>Creating Reservation...</span>
                         </div>
                       ) : (
-                        `Book Room for $${calculateTotal()}`
+                        `Book Room for ${formatCurrency(calculateTotal())}`
                       )}
                     </Button>
                   </form>
