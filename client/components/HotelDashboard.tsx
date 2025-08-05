@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import ViewReservations from "@/components/ViewReservations";
+import ReserveRoom from "@/components/ReserveRoom";
+import GetRoomNumber from "@/components/GetRoomNumber";
 import {
   Hotel,
   CalendarCheck,
