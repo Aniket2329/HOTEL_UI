@@ -36,6 +36,13 @@ export interface Reservation {
 }
 
 // API Request/Response Types
+export interface RegisterRequest {
+  username: string;
+  email: string;
+  phone: string;
+  password: string;
+}
+
 export interface LoginRequest {
   username: string;
   password: string;
