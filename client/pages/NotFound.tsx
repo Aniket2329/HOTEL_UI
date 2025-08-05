@@ -35,7 +35,7 @@ const NotFound = () => {
           </CardHeader>
           
           <CardContent className="text-center pb-6">
-            <p className="text-slate-500 mb-6">
+            <p className="text-slate-500 dark:text-slate-400 mb-6">
               The page you're looking for might have been moved, deleted, or is temporarily unavailable.
             </p>
             
