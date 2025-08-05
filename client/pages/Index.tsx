@@ -20,5 +20,5 @@ export default function Index() {
     return <HotelDashboard onLogout={handleLogout} username={username} />;
   }
 
-  return <HotelLogin onLogin={handleLogin} />;
+  return <HotelAuth onLogin={handleLogin} />;
 }
