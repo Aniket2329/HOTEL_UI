@@ -142,9 +142,9 @@ export default function HotelLogin({ onLogin }: HotelLoginProps) {
             </form>
 
             {/* Demo Credentials */}
-            <div className="mt-6 p-4 bg-slate-50 rounded-lg">
+            <div className="mt-6 p-4 bg-slate-50 dark:bg-slate-700 rounded-lg">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-sm text-slate-600 font-medium">Demo Credentials:</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300 font-medium">Demo Credentials:</p>
                 <Button
                   type="button"
                   variant="outline"
