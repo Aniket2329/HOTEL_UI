@@ -68,6 +68,19 @@ class HotelApiService {
   }
 
   // Authentication
+  async register(userData: RegisterRequest): Promise<LoginResponse> {
+    const response = await this.fetchApi<LoginResponse>('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify(userData),
+    });
+
+    if (response.success && response.token) {
+      this.setToken(response.token);
+    }
+
+    return response;
+  }
+
   async login(credentials: LoginRequest): Promise<LoginResponse> {
     const response = await this.fetchApi<LoginResponse>('/auth/login', {
       method: 'POST',
