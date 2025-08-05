@@ -26,7 +26,7 @@ export default function HotelDashboard({ onLogout, username }: HotelDashboardPro
   const menuOptions = [
     {
       id: "reserve",
-      title: "Reserve a Room",
+      title: "Reserve Rooms",
       description: "Book a new room reservation",
       icon: CalendarCheck,
       color: "bg-blue-50 hover:bg-blue-100 border-blue-200",
