@@ -15,7 +15,7 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center px-4">
       <div className="text-center max-w-md w-full">
         {/* Hotel Logo */}
         <div className="bg-primary rounded-full p-4 w-16 h-16 mx-auto mb-6 shadow-lg">
