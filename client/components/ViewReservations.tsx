@@ -130,7 +130,7 @@ export default function ViewReservations({ onBack }: ViewReservationsProps) {
                       <div>
                         <CardTitle className="text-lg">{reservation.guestName}</CardTitle>
                         <CardDescription>
-                          Reservation ID: {reservation.id.slice(-8)}
+                          Reservation ID: {reservation.id}
                         </CardDescription>
                       </div>
                     </div>
