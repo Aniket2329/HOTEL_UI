@@ -1,5 +1,5 @@
 import { useState } from "react";
-import HotelLogin from "@/components/HotelLogin";
+import HotelAuth from "@/components/HotelAuth";
 import HotelDashboard from "@/components/HotelDashboard";
 
 export default function Index() {
