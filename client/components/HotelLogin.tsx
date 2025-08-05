@@ -69,7 +69,7 @@ export default function HotelLogin({ onLogin }: HotelLoginProps) {
         <Card className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm shadow-2xl border-0">
           <CardHeader className="space-y-1 pb-6">
             <CardTitle className="text-2xl font-bold text-center text-slate-800 dark:text-slate-100">
-              Welcome Back
+              Welcome!
             </CardTitle>
             <CardDescription className="text-center text-slate-600 dark:text-slate-300">
               Sign in to access the hotel management system
