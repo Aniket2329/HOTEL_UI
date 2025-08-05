@@ -147,7 +147,7 @@ export default function ViewReservations({ onBack }: ViewReservationsProps) {
                       <MapPin className="h-4 w-4 text-slate-500" />
                       <div>
                         <p className="text-sm font-medium">Room {reservation.roomNumber}</p>
-                        <p className="text-xs text-slate-500">Room ID: {reservation.roomId.slice(-8)}</p>
+                        <p className="text-xs text-slate-500">Room ID: {reservation.roomId}</p>
                       </div>
                     </div>
 
