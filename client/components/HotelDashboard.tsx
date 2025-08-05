@@ -98,10 +98,11 @@ export default function HotelDashboard({ onLogout, username }: HotelDashboardPro
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2 text-slate-600">
+              <div className="flex items-center space-x-2 text-slate-600 dark:text-slate-300">
                 <User className="h-4 w-4" />
                 <span className="text-sm font-medium">Welcome, {username}</span>
               </div>
+              <ThemeToggle />
               <Button variant="outline" size="sm" onClick={onLogout}>
                 <LogOut className="h-4 w-4 mr-2" />
                 Logout
