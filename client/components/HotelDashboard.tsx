@@ -118,8 +118,8 @@ export default function HotelDashboard({ onLogout, username }: HotelDashboardPro
           <>
             {/* Dashboard Header */}
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-slate-900 mb-2">Hotel Management Dashboard</h2>
-              <p className="text-slate-600 max-w-2xl mx-auto">
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2">Hotel Management Dashboard</h2>
+              <p className="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
                 Manage your hotel operations efficiently. Select an option below to get started.
               </p>
             </div>
