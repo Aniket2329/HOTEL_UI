@@ -139,16 +139,16 @@ export class DatabaseService {
 
       // Create sample reservations
       await prisma.reservation.upsert({
-        where: { id: 'sample-reservation-1' },
+        where: { id: 1 },
         update: {},
         create: {
-          id: 'sample-reservation-1',
+          id: 1,
           guestId: sampleGuests[0].id,
           roomId: rooms[1].id, // Room 205
           checkIn: new Date('2024-02-15T15:00:00Z'),
           checkOut: new Date('2024-02-18T11:00:00Z'),
           numberOfGuests: 2,
-          totalAmount: 600, // 3 nights × 200
+          totalAmount: 18000, // 3 nights × ₹6000 (converted to INR)
           status: 'CONFIRMED',
           specialRequests: 'Late check-in requested',
         },
