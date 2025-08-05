@@ -23,7 +23,7 @@ const NotFound = () => {
         </div>
 
         {/* Error Card */}
-        <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
+        <Card className="shadow-lg border-0 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
           <CardHeader className="text-center pb-4">
             <div className="bg-orange-100 rounded-full p-3 w-16 h-16 mx-auto mb-4">
               <AlertTriangle className="h-10 w-10 text-orange-600 mx-auto" />
