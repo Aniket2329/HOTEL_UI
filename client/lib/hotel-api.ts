@@ -104,7 +104,7 @@ class HotelApiService {
     });
   }
 
-  async deleteReservation(id: string): Promise<DeleteReservationResponse> {
+  async deleteReservation(id: number): Promise<DeleteReservationResponse> {
     return this.fetchApi<DeleteReservationResponse>(`/reservations/${id}`, {
       method: 'DELETE',
     });
