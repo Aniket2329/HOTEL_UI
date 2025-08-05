@@ -61,12 +61,19 @@ export default function ReserveRoom({ onBack }: ReserveRoomProps) {
 
   const calculateTotal = () => {
     if (!selectedRoom || !formData.checkIn || !formData.checkOut) return 0;
-    
+
     const checkIn = new Date(formData.checkIn);
     const checkOut = new Date(formData.checkOut);
     const nights = Math.ceil((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24));
-    
+
     return nights > 0 ? nights * selectedRoom.price : 0;
+  };
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR'
+    }).format(amount);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
