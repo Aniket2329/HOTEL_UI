@@ -119,10 +119,29 @@ export default function HotelDashboard({ onLogout, username }: HotelDashboardPro
                 <span className="text-sm font-medium">Welcome, {username}</span>
               </div>
               <ThemeToggle />
-              <Button variant="outline" size="sm" onClick={onLogout}>
-                <LogOut className="h-4 w-4 mr-2" />
-                Logout
-              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="outline" size="sm">
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Confirm Logout</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Are you sure you want to logout from the Hotel Management System?
+                      Any unsaved changes will be lost.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={onLogout}>
+                      Yes, Logout
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
           </div>
         </div>
