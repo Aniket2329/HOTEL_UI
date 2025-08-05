@@ -66,7 +66,7 @@ export default function HotelLogin({ onLogin }: HotelLoginProps) {
         </div>
 
         {/* Login Card */}
-        <Card className="bg-white/95 backdrop-blur-sm shadow-2xl border-0">
+        <Card className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm shadow-2xl border-0">
           <CardHeader className="space-y-1 pb-6">
             <CardTitle className="text-2xl font-bold text-center text-slate-800">
               Welcome Back
