@@ -95,7 +95,7 @@ class HotelApiService {
   }
 
   async updateReservation(
-    id: string,
+    id: number,
     updates: Partial<UpdateReservationRequest>
   ): Promise<CreateReservationResponse> {
     return this.fetchApi<CreateReservationResponse>(`/reservations/${id}`, {
