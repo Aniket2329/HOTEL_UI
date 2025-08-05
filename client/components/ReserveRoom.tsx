@@ -375,7 +375,7 @@ export default function ReserveRoom({ onBack }: ReserveRoomProps) {
                       <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
                         <div className="flex justify-between items-center mb-2">
                           <span>Room Rate:</span>
-                          <span>${selectedRoom.price}/night</span>
+                          <span>{formatCurrency(selectedRoom.price)}/night</span>
                         </div>
                         <div className="flex justify-between items-center mb-2">
                           <span>Duration:</span>
@@ -385,7 +385,7 @@ export default function ReserveRoom({ onBack }: ReserveRoomProps) {
                         </div>
                         <div className="border-t pt-2 flex justify-between items-center font-semibold text-lg">
                           <span>Total Amount:</span>
-                          <span className="text-primary">${calculateTotal()}</span>
+                          <span className="text-primary">{formatCurrency(calculateTotal())}</span>
                         </div>
                       </div>
                     )}
