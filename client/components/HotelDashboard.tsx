@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  Hotel, 
-  CalendarCheck, 
-  Eye, 
-  MapPin, 
-  Edit, 
-  Trash2, 
+import { ThemeToggle } from "@/components/ThemeToggle";
+import {
+  Hotel,
+  CalendarCheck,
+  Eye,
+  MapPin,
+  Edit,
+  Trash2,
   LogOut,
   User,
   Calendar,
