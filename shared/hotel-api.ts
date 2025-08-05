@@ -71,7 +71,7 @@ export interface GetReservationsResponse {
 }
 
 export interface UpdateReservationRequest {
-  id: string;
+  id: number;
   guestName?: string;
   guestEmail?: string;
   guestPhone?: string;
