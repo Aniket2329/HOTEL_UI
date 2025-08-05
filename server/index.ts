@@ -9,8 +9,10 @@ import {
   updateReservation,
   deleteReservation,
   getRooms,
-  getRoomByReservation
+  getRoomByReservation,
+  healthCheck
 } from "./routes/hotel";
+import { DatabaseService } from "./lib/database";
 
 export function createServer() {
   const app = express();
