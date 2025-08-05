@@ -225,7 +225,7 @@ export default function ViewReservations({ onBack }: ViewReservationsProps) {
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-orange-600">
-                    ${reservations.reduce((sum, r) => sum + r.totalAmount, 0).toLocaleString()}
+                    {formatCurrency(reservations.reduce((sum, r) => sum + r.totalAmount, 0))}
                   </p>
                   <p className="text-sm text-slate-500">Total Revenue</p>
                 </div>
