@@ -35,7 +35,7 @@ const mapReservationToApi = (reservation: any): ApiReservation => ({
   checkOut: reservation.checkOut.toISOString(),
   numberOfGuests: reservation.numberOfGuests,
   totalAmount: reservation.totalAmount,
-  status: reservation.status.toLowerCase().replace('_', '_'),
+  status: reservation.status.toLowerCase(),
   createdAt: reservation.createdAt.toISOString(),
   updatedAt: reservation.updatedAt.toISOString(),
 });
