@@ -161,7 +161,7 @@ export default function GetRoomNumber({ onBack }: GetRoomNumberProps) {
                   type="text"
                   value={reservationId}
                   onChange={(e) => setReservationId(e.target.value)}
-                  placeholder="e.g., sample-reservation-1"
+                  placeholder="e.g., 1"
                   disabled={loading}
                 />
               </div>
