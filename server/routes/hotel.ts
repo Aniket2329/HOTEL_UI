@@ -47,6 +47,69 @@ const mapUserToApi = (user: any): ApiUser => ({
   role: user.role.toLowerCase(),
 });
 
+// Registration
+export const register: RequestHandler = async (req, res) => {
+  try {
+    const { username, email, phone, password } = req.body;
+
+    if (!username || !email || !phone || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required"
+      });
+    }
+
+    // Check if username already exists
+    const existingUser = await prisma.user.findUnique({
+      where: { username }
+    });
+
+    if (existingUser) {
+      return res.status(400).json({
+        success: false,
+        message: "Username already exists"
+      });
+    }
+
+    // Check if email already exists
+    const existingEmail = await prisma.user.findUnique({
+      where: { email }
+    });
+
+    if (existingEmail) {
+      return res.status(400).json({
+        success: false,
+        message: "Email already exists"
+      });
+    }
+
+    // Create new user
+    const newUser = await prisma.user.create({
+      data: {
+        username,
+        email,
+        password, // In production, hash the password
+        role: 'STAFF'
+      }
+    });
+
+    const response: LoginResponse = {
+      success: true,
+      user: mapUserToApi(newUser),
+      token: `jwt-token-${newUser.id}-${Date.now()}`,
+      message: "Registration successful"
+    };
+
+    res.status(201).json(response);
+  } catch (error) {
+    console.error('Registration error:', error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error"
+    });
+  }
+};
+
 // Authentication
 export const login: RequestHandler = async (req, res) => {
   try {
