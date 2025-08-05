@@ -309,6 +309,7 @@ export const updateReservation: RequestHandler = async (req, res) => {
 export const deleteReservation: RequestHandler = async (req, res) => {
   try {
     const { id } = req.params;
+    const reservationId = parseInt(id);
 
     const existingReservation = await prisma.reservation.findUnique({
       where: { id },
