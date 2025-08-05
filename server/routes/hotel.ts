@@ -281,7 +281,7 @@ export const updateReservation: RequestHandler = async (req, res) => {
 
     // Update reservation
     const updatedReservation = await prisma.reservation.update({
-      where: { id },
+      where: { id: reservationId },
       data: updateData,
       include: {
         guest: true,
