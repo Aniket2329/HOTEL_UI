@@ -69,7 +69,7 @@ export class DatabaseService {
           create: {
             number: '101',
             type: 'SINGLE',
-            price: 150,
+            price: 4500, // ₹4,500 per night
             status: 'AVAILABLE',
             amenities: JSON.stringify(['WiFi', 'TV', 'AC', 'Room Service']),
             description: 'Comfortable single room with city view',
@@ -81,7 +81,7 @@ export class DatabaseService {
           create: {
             number: '205',
             type: 'DOUBLE',
-            price: 200,
+            price: 6000, // ₹6,000 per night
             status: 'AVAILABLE',
             amenities: JSON.stringify(['WiFi', 'TV', 'AC', 'Mini Bar', 'Room Service']),
             description: 'Spacious double room with garden view',
@@ -93,7 +93,7 @@ export class DatabaseService {
           create: {
             number: '301',
             type: 'SUITE',
-            price: 400,
+            price: 12000, // ₹12,000 per night
             status: 'AVAILABLE',
             amenities: JSON.stringify(['WiFi', 'TV', 'AC', 'Mini Bar', 'Balcony', 'Jacuzzi', 'Room Service']),
             description: 'Luxury suite with ocean view and private balcony',
@@ -105,7 +105,7 @@ export class DatabaseService {
           create: {
             number: '405',
             type: 'DELUXE',
-            price: 300,
+            price: 9000, // ₹9,000 per night
             status: 'AVAILABLE',
             amenities: JSON.stringify(['WiFi', 'TV', 'AC', 'Mini Bar', 'Balcony', 'Room Service']),
             description: 'Deluxe room with premium amenities',
