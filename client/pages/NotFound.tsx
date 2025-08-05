@@ -51,7 +51,7 @@ const NotFound = () => {
         </Card>
 
         {/* Additional Info */}
-        <p className="text-slate-400 text-sm mt-6">
+        <p className="text-slate-400 dark:text-slate-500 text-sm mt-6">
           If you continue to experience issues, please contact your system administrator.
         </p>
       </div>
