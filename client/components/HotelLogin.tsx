@@ -137,7 +137,21 @@ export default function HotelLogin({ onLogin }: HotelLoginProps) {
 
             {/* Demo Credentials */}
             <div className="mt-6 p-4 bg-slate-50 rounded-lg">
-              <p className="text-sm text-slate-600 font-medium mb-2">Demo Credentials:</p>
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-sm text-slate-600 font-medium">Demo Credentials:</p>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setUsername("admin");
+                    setPassword("password");
+                  }}
+                  disabled={isLoading}
+                >
+                  Auto-fill
+                </Button>
+              </div>
               <p className="text-xs text-slate-500">Username: admin</p>
               <p className="text-xs text-slate-500">Password: password</p>
               <p className="text-xs text-slate-400 mt-2">
