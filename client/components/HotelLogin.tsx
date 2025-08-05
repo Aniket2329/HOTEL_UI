@@ -61,7 +61,7 @@ export default function HotelLogin({ onLogin }: HotelLoginProps) {
           <div className="bg-white rounded-full p-4 w-16 h-16 mx-auto mb-4 shadow-lg">
             <Hotel className="h-8 w-8 text-slate-800 mx-auto" />
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">Hotel Management</h1>
+          <h1 className="text-3xl font-bold text-white mb-2">Hotel Palace</h1>
           <p className="text-slate-300">System Login Portal</p>
         </div>
 
