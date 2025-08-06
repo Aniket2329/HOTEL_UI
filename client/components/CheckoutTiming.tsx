@@ -76,9 +76,9 @@ export default function CheckoutTiming({ onBack }: CheckoutTimingProps) {
 
     try {
       const response = await hotelApi.getReservations();
-      if (response.success && response.data) {
+      if (response.success && response.reservations) {
         // Search for reservation by guest name, email, or reservation ID
-        const foundReservation = response.data.find((res: Reservation) => {
+        const foundReservation = response.reservations.find((res: Reservation) => {
           const searchLower = searchTerm.toLowerCase();
           return (
             res.guest.name.toLowerCase().includes(searchLower) ||
