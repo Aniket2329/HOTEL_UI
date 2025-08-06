@@ -92,12 +92,12 @@ export default function HotelDashboard({
       iconColor: "text-red-600",
     },
     {
-      id: "exit",
-      title: "Exit",
-      description: "Logout from the system",
-      icon: LogOut,
-      color: "bg-gray-50 hover:bg-gray-100 border-gray-200",
-      iconColor: "text-gray-600",
+      id: "checkout-timing",
+      title: "Checkout Timing",
+      description: "Check remaining checkout time for guests",
+      icon: Clock,
+      color: "bg-cyan-50 hover:bg-cyan-100 border-cyan-200",
+      iconColor: "text-cyan-600",
     },
   ];
 
