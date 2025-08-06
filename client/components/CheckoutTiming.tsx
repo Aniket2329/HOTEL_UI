@@ -235,7 +235,7 @@ export default function CheckoutTiming({ onBack }: CheckoutTimingProps) {
                   <div className="flex items-center space-x-2">
                     <MapPin className="h-4 w-4 text-slate-500" />
                     <span className="text-sm font-medium text-slate-500 dark:text-slate-400">Room:</span>
-                    <span className="font-semibold">{reservation.room.number} ({reservation.room.type})</span>
+                    <span className="font-semibold">{reservation.roomNumber}</span>
                   </div>
                   <div>
                     <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Total Amount</p>
