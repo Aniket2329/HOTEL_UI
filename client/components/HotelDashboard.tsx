@@ -223,52 +223,6 @@ export default function HotelDashboard({
               {menuOptions.map((option) => {
                 const IconComponent = option.icon;
 
-                if (option.id === "exit") {
-                  return (
-                    <AlertDialog key={option.id}>
-                      <AlertDialogTrigger asChild>
-                        <Card
-                          className={`${option.color} cursor-pointer transition-all duration-200 hover:shadow-md border-2`}
-                        >
-                          <CardHeader className="pb-4">
-                            <div className="flex items-center space-x-3">
-                              <div className={`p-2 rounded-lg bg-white/50`}>
-                                <IconComponent
-                                  className={`h-6 w-6 ${option.iconColor}`}
-                                />
-                              </div>
-                              <CardTitle className="text-lg text-slate-800">
-                                {option.title}
-                              </CardTitle>
-                            </div>
-                          </CardHeader>
-                          <CardContent className="pt-0">
-                            <CardDescription className="text-slate-600">
-                              {option.description}
-                            </CardDescription>
-                          </CardContent>
-                        </Card>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>Confirm Exit</AlertDialogTitle>
-                          <AlertDialogDescription>
-                            Are you sure you want to exit the Hotel Management
-                            System? You will be logged out and any unsaved
-                            changes will be lost.
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction onClick={onLogout}>
-                            Yes, Exit
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
-                  );
-                }
-
                 return (
                   <Card
                     key={option.id}
