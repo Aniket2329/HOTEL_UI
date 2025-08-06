@@ -216,15 +216,15 @@ export default function CheckoutTiming({ onBack }: CheckoutTimingProps) {
                 <div className="space-y-4">
                   <div>
                     <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Guest Name</p>
-                    <p className="text-lg font-semibold">{reservation.guest.name}</p>
+                    <p className="text-lg font-semibold">{reservation.guestName}</p>
                   </div>
                   <div>
                     <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Email</p>
-                    <p className="text-slate-700 dark:text-slate-300">{reservation.guest.email}</p>
+                    <p className="text-slate-700 dark:text-slate-300">{reservation.guestEmail}</p>
                   </div>
                   <div>
                     <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Phone</p>
-                    <p className="text-slate-700 dark:text-slate-300">{reservation.guest.phone}</p>
+                    <p className="text-slate-700 dark:text-slate-300">{reservation.guestPhone}</p>
                   </div>
                 </div>
                 <div className="space-y-4">
