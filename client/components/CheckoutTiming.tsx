@@ -60,15 +60,17 @@ export default function CheckoutTiming({ onBack }: CheckoutTimingProps) {
       const response = await hotelApi.getReservations();
       if (response.success && response.reservations) {
         // Search for reservation by guest name, email, or reservation ID
-        const foundReservation = response.reservations.find((res: Reservation) => {
-          const searchLower = searchTerm.toLowerCase();
-          return (
-            res.guestName.toLowerCase().includes(searchLower) ||
-            res.guestEmail.toLowerCase().includes(searchLower) ||
-            res.id.toString() === searchTerm ||
-            res.roomNumber.toLowerCase().includes(searchLower)
-          );
-        });
+        const foundReservation = response.reservations.find(
+          (res: Reservation) => {
+            const searchLower = searchTerm.toLowerCase();
+            return (
+              res.guestName.toLowerCase().includes(searchLower) ||
+              res.guestEmail.toLowerCase().includes(searchLower) ||
+              res.id.toString() === searchTerm ||
+              res.roomNumber.toLowerCase().includes(searchLower)
+            );
+          },
+        );
 
         if (foundReservation) {
           setReservation(foundReservation);
@@ -97,7 +99,9 @@ export default function CheckoutTiming({ onBack }: CheckoutTimingProps) {
     }
 
     const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const hours = Math.floor(
+      (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+    );
     const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
@@ -107,9 +111,9 @@ export default function CheckoutTiming({ onBack }: CheckoutTimingProps) {
   const timeRemaining = calculateTimeRemaining();
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
       minimumFractionDigits: 0,
     }).format(amount);
   };
@@ -191,7 +195,9 @@ export default function CheckoutTiming({ onBack }: CheckoutTimingProps) {
           {error && (
             <Alert className="mt-4 border-red-200 bg-red-50">
               <AlertCircle className="h-4 w-4" />
-              <AlertDescription className="text-red-700">{error}</AlertDescription>
+              <AlertDescription className="text-red-700">
+                {error}
+              </AlertDescription>
             </Alert>
           )}
         </CardContent>
@@ -207,7 +213,7 @@ export default function CheckoutTiming({ onBack }: CheckoutTimingProps) {
                 <User className="h-5 w-5" />
                 <span>Guest Information</span>
                 <Badge className={getStatusColor(reservation.status)}>
-                  {reservation.status.replace('_', ' ').toUpperCase()}
+                  {reservation.status.replace("_", " ").toUpperCase()}
                 </Badge>
               </CardTitle>
             </CardHeader>
@@ -215,31 +221,53 @@ export default function CheckoutTiming({ onBack }: CheckoutTimingProps) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div>
-                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Guest Name</p>
-                    <p className="text-lg font-semibold">{reservation.guestName}</p>
+                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                      Guest Name
+                    </p>
+                    <p className="text-lg font-semibold">
+                      {reservation.guestName}
+                    </p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Email</p>
-                    <p className="text-slate-700 dark:text-slate-300">{reservation.guestEmail}</p>
+                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                      Email
+                    </p>
+                    <p className="text-slate-700 dark:text-slate-300">
+                      {reservation.guestEmail}
+                    </p>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Phone</p>
-                    <p className="text-slate-700 dark:text-slate-300">{reservation.guestPhone}</p>
+                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                      Phone
+                    </p>
+                    <p className="text-slate-700 dark:text-slate-300">
+                      {reservation.guestPhone}
+                    </p>
                   </div>
                 </div>
                 <div className="space-y-4">
                   <div>
-                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Reservation ID</p>
+                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                      Reservation ID
+                    </p>
                     <p className="text-lg font-semibold">#{reservation.id}</p>
                   </div>
                   <div className="flex items-center space-x-2">
                     <MapPin className="h-4 w-4 text-slate-500" />
-                    <span className="text-sm font-medium text-slate-500 dark:text-slate-400">Room:</span>
-                    <span className="font-semibold">{reservation.roomNumber}</span>
+                    <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                      Room:
+                    </span>
+                    <span className="font-semibold">
+                      {reservation.roomNumber}
+                    </span>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Total Amount</p>
-                    <p className="text-lg font-semibold text-green-600">{formatCurrency(reservation.totalAmount)}</p>
+                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                      Total Amount
+                    </p>
+                    <p className="text-lg font-semibold text-green-600">
+                      {formatCurrency(reservation.totalAmount)}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -258,46 +286,58 @@ export default function CheckoutTiming({ onBack }: CheckoutTimingProps) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div>
-                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Check-in Date</p>
+                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                      Check-in Date
+                    </p>
                     <div className="flex items-center space-x-2">
                       <Calendar className="h-4 w-4 text-green-500" />
                       <p className="text-lg font-semibold">
-                        {new Date(reservation.checkIn).toLocaleDateString('en-IN', {
-                          weekday: 'long',
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                          hour: '2-digit',
-                          minute: '2-digit'
-                        })}
+                        {new Date(reservation.checkIn).toLocaleDateString(
+                          "en-IN",
+                          {
+                            weekday: "long",
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          },
+                        )}
                       </p>
                     </div>
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Check-out Date</p>
+                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                      Check-out Date
+                    </p>
                     <div className="flex items-center space-x-2">
                       <Calendar className="h-4 w-4 text-red-500" />
                       <p className="text-lg font-semibold">
-                        {new Date(reservation.checkOut).toLocaleDateString('en-IN', {
-                          weekday: 'long',
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                          hour: '2-digit',
-                          minute: '2-digit'
-                        })}
+                        {new Date(reservation.checkOut).toLocaleDateString(
+                          "en-IN",
+                          {
+                            weekday: "long",
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          },
+                        )}
                       </p>
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center justify-center">
                   <div className="text-center">
                     <div className="flex items-center justify-center mb-2">
                       <Timer className="h-6 w-6 text-blue-600 mr-2" />
-                      <p className="text-lg font-medium text-slate-700 dark:text-slate-300">Time Remaining</p>
+                      <p className="text-lg font-medium text-slate-700 dark:text-slate-300">
+                        Time Remaining
+                      </p>
                     </div>
-                    
+
                     {timeRemaining && (
                       <div className="space-y-2">
                         {timeRemaining.expired ? (
@@ -307,35 +347,57 @@ export default function CheckoutTiming({ onBack }: CheckoutTimingProps) {
                               CHECKOUT OVERDUE
                             </Badge>
                             <p className="text-sm text-red-600 mt-2">
-                              Overdue by {Math.floor(timeRemaining.overdue / (1000 * 60 * 60))} hours and {Math.floor((timeRemaining.overdue % (1000 * 60 * 60)) / (1000 * 60))} minutes
+                              Overdue by{" "}
+                              {Math.floor(
+                                timeRemaining.overdue / (1000 * 60 * 60),
+                              )}{" "}
+                              hours and{" "}
+                              {Math.floor(
+                                (timeRemaining.overdue % (1000 * 60 * 60)) /
+                                  (1000 * 60),
+                              )}{" "}
+                              minutes
                             </p>
                           </div>
                         ) : (
                           <div className="text-center">
                             <div className="grid grid-cols-4 gap-2 mb-2">
                               <div className="bg-white dark:bg-slate-700 rounded-lg p-2 border">
-                                <p className="text-2xl font-bold text-blue-600">{timeRemaining.days}</p>
+                                <p className="text-2xl font-bold text-blue-600">
+                                  {timeRemaining.days}
+                                </p>
                                 <p className="text-xs text-slate-500">Days</p>
                               </div>
                               <div className="bg-white dark:bg-slate-700 rounded-lg p-2 border">
-                                <p className="text-2xl font-bold text-blue-600">{timeRemaining.hours}</p>
+                                <p className="text-2xl font-bold text-blue-600">
+                                  {timeRemaining.hours}
+                                </p>
                                 <p className="text-xs text-slate-500">Hours</p>
                               </div>
                               <div className="bg-white dark:bg-slate-700 rounded-lg p-2 border">
-                                <p className="text-2xl font-bold text-blue-600">{timeRemaining.minutes}</p>
-                                <p className="text-xs text-slate-500">Minutes</p>
+                                <p className="text-2xl font-bold text-blue-600">
+                                  {timeRemaining.minutes}
+                                </p>
+                                <p className="text-xs text-slate-500">
+                                  Minutes
+                                </p>
                               </div>
                               <div className="bg-white dark:bg-slate-700 rounded-lg p-2 border">
-                                <p className="text-2xl font-bold text-blue-600">{timeRemaining.seconds}</p>
-                                <p className="text-xs text-slate-500">Seconds</p>
+                                <p className="text-2xl font-bold text-blue-600">
+                                  {timeRemaining.seconds}
+                                </p>
+                                <p className="text-xs text-slate-500">
+                                  Seconds
+                                </p>
                               </div>
                             </div>
-                            {timeRemaining.days === 0 && timeRemaining.hours < 2 && (
-                              <Badge className="bg-yellow-100 text-yellow-800 border-yellow-200">
-                                <AlertCircle className="h-4 w-4 mr-2" />
-                                Checkout Soon
-                              </Badge>
-                            )}
+                            {timeRemaining.days === 0 &&
+                              timeRemaining.hours < 2 && (
+                                <Badge className="bg-yellow-100 text-yellow-800 border-yellow-200">
+                                  <AlertCircle className="h-4 w-4 mr-2" />
+                                  Checkout Soon
+                                </Badge>
+                              )}
                           </div>
                         )}
                       </div>
@@ -347,17 +409,20 @@ export default function CheckoutTiming({ onBack }: CheckoutTimingProps) {
               <div className="mt-6 p-4 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
                 <div className="flex items-center space-x-2 mb-2">
                   <CheckCircle className="h-5 w-5 text-blue-600" />
-                  <p className="font-medium text-blue-800 dark:text-blue-200">Current Status</p>
+                  <p className="font-medium text-blue-800 dark:text-blue-200">
+                    Current Status
+                  </p>
                 </div>
                 <p className="text-blue-700 dark:text-blue-300">
-                  Current Time: {currentTime.toLocaleString('en-IN', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
+                  Current Time:{" "}
+                  {currentTime.toLocaleString("en-IN", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
                   })}
                 </p>
                 <p className="text-sm text-blue-600 dark:text-blue-400 mt-1">

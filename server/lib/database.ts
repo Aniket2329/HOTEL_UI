@@ -166,8 +166,8 @@ export class DatabaseService {
 
       // Create sample reservations with current/future dates
       const now = new Date();
-      const checkInDate = new Date(now.getTime() - (2 * 24 * 60 * 60 * 1000)); // 2 days ago
-      const checkOutDate = new Date(now.getTime() + (1 * 24 * 60 * 60 * 1000)); // 1 day from now
+      const checkInDate = new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000); // 2 days ago
+      const checkOutDate = new Date(now.getTime() + 1 * 24 * 60 * 60 * 1000); // 1 day from now
 
       await prisma.reservation.upsert({
         where: { id: 1 },
@@ -193,8 +193,8 @@ export class DatabaseService {
           id: 2,
           guestId: sampleGuests[1].id,
           roomId: rooms[2].id, // Room 301 (Suite)
-          checkIn: new Date(now.getTime() + (1 * 24 * 60 * 60 * 1000)), // 1 day from now
-          checkOut: new Date(now.getTime() + (3 * 24 * 60 * 60 * 1000)), // 3 days from now
+          checkIn: new Date(now.getTime() + 1 * 24 * 60 * 60 * 1000), // 1 day from now
+          checkOut: new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000), // 3 days from now
           numberOfGuests: 2,
           totalAmount: 24000, // 2 nights × ₹12000
           status: "CONFIRMED",
