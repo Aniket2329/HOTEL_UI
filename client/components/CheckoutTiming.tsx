@@ -63,10 +63,10 @@ export default function CheckoutTiming({ onBack }: CheckoutTimingProps) {
         const foundReservation = response.reservations.find((res: Reservation) => {
           const searchLower = searchTerm.toLowerCase();
           return (
-            res.guest.name.toLowerCase().includes(searchLower) ||
-            res.guest.email.toLowerCase().includes(searchLower) ||
+            res.guestName.toLowerCase().includes(searchLower) ||
+            res.guestEmail.toLowerCase().includes(searchLower) ||
             res.id.toString() === searchTerm ||
-            res.room.number.toLowerCase().includes(searchLower)
+            res.roomNumber.toLowerCase().includes(searchLower)
           );
         });
 
