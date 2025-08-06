@@ -164,7 +164,11 @@ export class DatabaseService {
         }),
       ]);
 
-      // Create sample reservations
+      // Create sample reservations with current/future dates
+      const now = new Date();
+      const checkInDate = new Date(now.getTime() - (2 * 24 * 60 * 60 * 1000)); // 2 days ago
+      const checkOutDate = new Date(now.getTime() + (1 * 24 * 60 * 60 * 1000)); // 1 day from now
+
       await prisma.reservation.upsert({
         where: { id: 1 },
         update: {},
@@ -172,12 +176,29 @@ export class DatabaseService {
           id: 1,
           guestId: sampleGuests[0].id,
           roomId: rooms[1].id, // Room 205
-          checkIn: new Date("2024-02-15T15:00:00Z"),
-          checkOut: new Date("2024-02-18T11:00:00Z"),
+          checkIn: checkInDate,
+          checkOut: checkOutDate,
           numberOfGuests: 2,
           totalAmount: 18000, // 3 nights × ₹6000 (converted to INR)
           status: "CONFIRMED",
           specialRequests: "Late check-in requested",
+        },
+      });
+
+      // Add another reservation with different timing
+      await prisma.reservation.upsert({
+        where: { id: 2 },
+        update: {},
+        create: {
+          id: 2,
+          guestId: sampleGuests[1].id,
+          roomId: rooms[2].id, // Room 301 (Suite)
+          checkIn: new Date(now.getTime() + (1 * 24 * 60 * 60 * 1000)), // 1 day from now
+          checkOut: new Date(now.getTime() + (3 * 24 * 60 * 60 * 1000)), // 3 days from now
+          numberOfGuests: 2,
+          totalAmount: 24000, // 2 nights × ₹12000
+          status: "CONFIRMED",
+          specialRequests: "Ocean view preferred",
         },
       });
 
