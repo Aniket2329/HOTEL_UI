@@ -28,25 +28,7 @@ interface CheckoutTimingProps {
   onBack: () => void;
 }
 
-interface Reservation {
-  id: number;
-  guest: {
-    id: number;
-    name: string;
-    email: string;
-    phone: string;
-  };
-  room: {
-    id: number;
-    number: string;
-    type: string;
-  };
-  checkIn: string;
-  checkOut: string;
-  status: string;
-  numberOfGuests: number;
-  totalAmount: number;
-}
+import { Reservation } from "@shared/hotel-api";
 
 export default function CheckoutTiming({ onBack }: CheckoutTimingProps) {
   const [searchTerm, setSearchTerm] = useState("");
