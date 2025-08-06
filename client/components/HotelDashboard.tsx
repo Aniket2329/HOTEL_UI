@@ -102,12 +102,7 @@ export default function HotelDashboard({
   ];
 
   const handleOptionClick = (optionId: string) => {
-    if (optionId === "exit") {
-      // Exit option will be handled by the confirmation dialog in the card
-      return;
-    } else {
-      setSelectedOption(optionId);
-    }
+    setSelectedOption(optionId);
   };
 
   return (
