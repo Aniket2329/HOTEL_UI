@@ -269,6 +269,9 @@ export default function HotelDashboard({
             {selectedOption === "delete" && (
               <DeleteReservations onBack={() => setSelectedOption(null)} />
             )}
+            {selectedOption === "checkout-timing" && (
+              <CheckoutTiming onBack={() => setSelectedOption(null)} />
+            )}
           </>
         )}
       </div>
